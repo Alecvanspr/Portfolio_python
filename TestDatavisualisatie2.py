@@ -1,9 +1,12 @@
 #https://towardsdatascience.com/how-to-work-with-excel-files-in-pandas-c584abb67bfb
 
-from cmath import exp
-from turtle import pos
-import matplotlib.pyplot as plt
 
+from cmath import exp
+from tabnanny import check
+from turtle import pos
+from VisualisatieTools import *
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
@@ -46,61 +49,28 @@ def dienstMetMeesteSchade():
         count+=1
     
     # Pie chart, where the slices will be ordered and plotted counter-clockwise:
-    labels = shifts
-    sizes = MaakPercentages(aantallen)
-    explode = (getZeroes(len(shifts)))  # only "explode" the 2nd slice (i.e. 'Hogs')
+    MaakCircleDiagram(shifts,MaakPercentages(aantallen))
 
-    fig1, ax1 = plt.subplots()
-    ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
-            shadow=True, startangle=90)
-    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+def dagMetMeesteSchade():
+    dagen = ['ma','di','wo','do','vr','za','zo']
+    schade = [0,0,0,0,0,0,0]
+    count = 0
 
-    plt.show()
+    for dag in data["WkDay"]:
+        positie = checkIfContains(dagen,dag)
+        schade[positie]+=data["Incident Cost"][count]
+        count+=1
 
-#Deze methode checkt of de array die genoemde shift bevat
-def checkIfContains(catagorien,benodigd):
-    positie=0
-    for catagorie in catagorien:
-        if(catagorie==benodigd):
-            return positie
-        positie+=1
-    return -1
+    maakStaafDiagram(dagen,schade)
+    MaakCircleDiagram(dagen,schade)
 
-#Deze methode zet de array om in percentages
-def MaakPercentages(data):
-    totaal = 0
-    enkelPercentage = 0
-    ret = []
 
-    #deze methode rekent het totaal uit
-    for i in data:
-        totaal+=i
 
-    #deze methode berekend het percentage
-    enkelPercentage = totaal/100
-    for i in data:
-        ret.append((i/enkelPercentage))
-    return ret
-
-def maakLabel(data):
-    ret= ""
-    for i in data:
-        ret= ret , i
-        
-def getZeroes(times):
-    ret=[0.1]
-    for i in range(times-1):
-        ret.append(0)
-    return ret
 #Het gemiddelde schade per geslacht
 #SchadePerGeslacht()
 
 #Dienst met de gemiddelde schade in een pychart
-dienstMetMeesteSchade()
-
+#dienstMetMeesteSchade()
 
 #op welke dag wordt er het meeste schade gereden in een week (Dit is leuk in een staaf diagram)
-
-#Welke leeftijdsgroep maakt het meeste schade
-
-#Wat is de meest voorkomende incident type
+#dagMetMeesteSchade()
