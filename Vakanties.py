@@ -2,6 +2,7 @@ from cmath import exp
 from tabnanny import check
 from turtle import pos, position
 from VisualisatieTools import *
+from datetime import datetime
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -34,9 +35,33 @@ def prijs_vakantieland():
         print('Gemiddelde prijs:',(prijs_per_land[count]/count_bestemming_landen[count]))
         count+=1
 
+def berekenGoedkoopsteWeek():
+    weken = []
+    prijzen = []
+    count = 0
+
+    for prijs in data['Prijs']:
+        aankomstDatum = data["Arriveer datum"][count].date()
+        vertrekDatum = data['Vertrek datum'][count].date()
+
+        aankomst = aankomstDatum.strftime("%d")+"-"+aankomstDatum.strftime("%m")
+        vertrek = vertrekDatum.strftime("%d")+'-'+vertrekDatum.strftime("%m")
+        week = aankomst+'/'+vertrek
+
+        position =checkIfContains(weken,week)
+        if(position==-1):
+            weken.append(week)
+            prijzen.append(prijs)
+        else:
+            prijzen[position]+=prijs
+        count+=1
+    print(weken)
+
+    
+
 
 #Gemiddelde prijs van de vakantie
-prijs_vakantieland()
-#het vakantieland met de meeste bestemmingen
+#prijs_vakantieland()
 
 #De week dat het gemiddeld het goedkoopst is
+berekenGoedkoopsteWeek()
