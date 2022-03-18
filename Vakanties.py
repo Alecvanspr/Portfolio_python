@@ -61,7 +61,7 @@ def berekenGoedkoopsteWeek():
 
 
 #Gemiddelde prijs van de vakantie
-#prijs_vakantieland()
+prijs_vakantieland()
 
 #De week dat het gemiddeld het goedkoopst is
-berekenGoedkoopsteWeek()
+#berekenGoedkoopsteWeek()
