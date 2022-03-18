@@ -5,6 +5,12 @@ from django.http import HttpResponse
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+def homeScreen(request):
+    return render(
+        request,
+        'Hello/HomeScreen.html'
+    )
+
 def home(request):
     return HttpResponse("Hello, Django!")
 
