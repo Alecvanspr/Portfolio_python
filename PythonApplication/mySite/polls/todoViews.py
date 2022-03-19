@@ -9,5 +9,14 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 def home(request):
     return render(
         request,
-        'todo/Home.html'
+        'todo/Home.html',
+        {
+            "taken": taken,
+        }
     )
+
+#verwijder een todo Item
+
+#Voeg een nieuwe item toe
+
+#bewerk een item

@@ -18,15 +18,26 @@
         <div class="row">
             <h1>dit is de pagina voor de todo list</h1>
         </div>
+        <div class="btn-group center" role="group">
+            <input>
+            <a href="" class="btn btn-primary">Voeg item toe</a>
+
+        </div>
         <table>
             <thead>
                 <th style="width:5rem">positie</th>
                 <th style="width:20rem">Taak</th>
+                <th style="width:5rem;"></th>
+                <th style="width:5rem"></th>    
             </thead>
+            {% for taak in taken %}
             <tbody>
-                <td>Data 1</td>
-                <td>Data 2</td>
+                <td> plaats </td>
+                <td>{{ taak }}</td>
+                <td><a href="">Edit</a></td>   
+                <td><a href="">Delete</a></td>   
             </tbody>
+            {% endfor %}
         </table>
     </div>
 </body>
