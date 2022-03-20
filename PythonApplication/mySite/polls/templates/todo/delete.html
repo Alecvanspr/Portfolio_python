@@ -1,7 +1,11 @@
-{% extends 'todo/base.html' %}
+{% extends 'Shared/base.html' %}
 {% load static %}
 {% block content %}
 
-
+<h1>weet u zeker dat u {{ taak.taak}} wil verwijderen?</h1>
+<div class="btn-group">
+    <a class="btn btn-danger" href="#">Ik wil het verwijderen</a>
+    <a class="btn btn-primary" href="">nee</a>
+</div>
 
 {% endblock %}

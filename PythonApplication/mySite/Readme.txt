@@ -31,3 +31,5 @@ Het model moet je ook toevoegen in de admin.py. Anders kan je deze niet inzien
 door het gebruik van
 python manage.py createsuperuser
 kan je een email en een wachtwoord aanmaken, hier heb je dan een snel overzicht van de database en de andere gegevens
+
+

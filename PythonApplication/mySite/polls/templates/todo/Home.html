@@ -4,7 +4,7 @@
         <div class="row">
             <h1>dit is de pagina voor de todo list</h1>
         </div>
-        <div class="btn-group center" role="group">
+        <div class="d-flex justify-content-center" role="group">
             <input>
             <a href="" class="btn btn-primary">Voeg item toe</a>
 
@@ -21,7 +21,7 @@
                 <td> {{ taak.id }} </td>
                 <td>{{ taak.taak }}</td>
                 <td><a href="">Edit</a></td>   
-                <td><a href="">Delete</a></td>   
+                <td><a href="todo/delete/{{ taak.id}}">Delete</a></td>   
             </tbody>
             {% endfor %}
         </table>

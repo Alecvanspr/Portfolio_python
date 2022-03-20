@@ -4,3 +4,18 @@ th{
 td{
     border: solid black 2px;
 }
+header{
+    border:solid black 3px;
+}
+.menu li{
+    padding: 0.5rem;
+    margin:0.5rem;
+    list-style: none;
+    border: solid black 1px;
+    float: right;
+    border-radius: 1rem;
+}
+.menu li:hover{
+    background-color: grey;
+    transition:1s background-color;
+}

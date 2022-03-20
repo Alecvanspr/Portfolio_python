@@ -19,6 +19,22 @@ def home(request):
     )
 
 #verwijder een todo Item
+def delete(request,place):
+    if int(place) > TodoItem.objects.count():
+        return notFound(request)   
+    taak = TodoItem.objects.get(id=place)
+    return render(
+        request,
+        "todo/delete.html",
+        {
+            'taak':taak,
+        }
+    )
+def notFound(request):
+    return render(
+        request,
+        "Shared/notfound.html"
+    )
 
 #Voeg een nieuwe item toe
 

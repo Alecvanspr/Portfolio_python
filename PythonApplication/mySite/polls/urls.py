@@ -1,4 +1,5 @@
 from django.urls import path
+from numpy import delete
 
 from . import todoViews
 from . import views
@@ -11,5 +12,7 @@ urlpatterns = [
     path("home/<name>", views.hello_there, name="hello_there"),
     path("Variabelen/<Variabel1>&<Variabel2>&<Variabel3>",views.PaginaMetVariabelen,name="paginaMetVariabelen"),
     path("Lijst", views.PaginaMetLijst , name="home"),
-    path("todo", todoViews.home, name="home") 
+    path("todo", todoViews.home, name="home"),
+    path("todo/delete/", todoViews.notFound,name="notFound"),
+    path("todo/delete/<place>", todoViews.delete, name='delete')
 ]
