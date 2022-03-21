@@ -3,9 +3,14 @@
 {% block content %}
 
 <h1>weet u zeker dat u {{ taak.taak}} wil verwijderen?</h1>
+<form action="/todo/deleteConfirm" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="place" value="{{ taak.id }}">
+    <input type="text" name="naam" placeholder="{{ taak.taak }}">
+    <input type="submit" value="Ik wil het item verwijderen" class="btn btn-danger">
+</form> 
 <div class="btn-group">
-    <a class="btn btn-danger" href="#">Ik wil het verwijderen</a>
-    <a class="btn btn-primary" href="">nee</a>
+    <a class="btn btn-primary" href="/todo">Terug</a>
 </div>
 
 {% endblock %}

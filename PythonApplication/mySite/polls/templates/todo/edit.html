@@ -1,0 +1,12 @@
+{% extends 'Shared/base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Bewerk de gegevens van {{ taak.taak }}</h1>
+<form action="/todo/EditItem" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="place" value="{{ taak.id }}">
+    <input type="text" name="TaakNaam" placeholder="{{ taak.taak }}">
+    <input type="submit" value="Bewerk" class="btn btn-primary">
+</form> 
+{% endblock %}

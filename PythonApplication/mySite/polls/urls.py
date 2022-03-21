@@ -14,5 +14,11 @@ urlpatterns = [
     path("Lijst", views.PaginaMetLijst , name="home"),
     path("todo", todoViews.home, name="home"),
     path("todo/delete/", todoViews.notFound,name="notFound"),
-    path("todo/delete/<place>", todoViews.delete, name='delete')
+    path("todo/delete/<place>", todoViews.delete, name='delete'),
+    path("todo/deleteConfirm", todoViews.deleteConfirm, name='delete Confirmed'),
+    path("todo/edit", todoViews.notFound, name="notfound"),
+    path("todo/edit/<place>", todoViews.edit, name='edit'),
+    path("todo/add",todoViews.add, name="add"),
+    path("todo/EditItem", todoViews.EditItem, name="Edit Item"),
+    path("todo/succes", todoViews.succes, name="Succes"),
 ]
