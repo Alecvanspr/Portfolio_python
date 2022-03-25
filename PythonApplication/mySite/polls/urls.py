@@ -18,6 +18,7 @@ urlpatterns = [
     path("todo/deleteConfirm", todoViews.deleteConfirm, name='delete Confirmed'),
     path("todo/edit", todoViews.notFound, name="notfound"),
     path("todo/edit/<place>", todoViews.edit, name='edit'),
+    path("todo/additem", todoViews.addItem, name="Voeg item toe"),
     path("todo/add",todoViews.add, name="add"),
     path("todo/EditItem", todoViews.EditItem, name="Edit Item"),
     path("todo/succes", todoViews.succes, name="Succes"),

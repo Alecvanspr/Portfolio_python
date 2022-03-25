@@ -1,0 +1,13 @@
+{% extends 'Shared/base.html' %}
+{% load static %}
+{% block content %}
+
+<form action="/todo/add" method="POST">
+
+    {% csrf_token %}
+    <input name="naam" placeholder="nieuwe taak">
+    <input type="date" name="datum">
+    <input type="submit" value="Create">
+</form>
+
+{% endblock %}

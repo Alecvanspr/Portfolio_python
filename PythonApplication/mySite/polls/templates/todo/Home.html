@@ -4,27 +4,28 @@
         <div class="row">
             <h1>dit is de pagina voor de todo list</h1>
         </div>
-        <div class="" role="group">
-        <form action="/todo/add" method="POST">
-
-            {% csrf_token %}
-
-            <input class="col-8" name="naam" placeholder="nieuwe taak">
-            <input type="submit" value="Create">
-        </form>
-
-        </div>
+        <a class="btn btn-primary" href="/todo/additem">Maak nieuw item aan</a> 
         <table>
             <thead>
                 <th style="width:5rem">positie</th>
                 <th style="width:20rem">Taak</th>
+                <th style="width:5rem;">Deadline</th>
+                <th style="width:1rem;">voltooid</th>
                 <th style="width:5rem;"></th>
                 <th style="width:5rem"></th>    
             </thead>
             {% for taak in taken %}
             <tbody>
-                <td> {{ taak.id }} </td>
+                <td>{{ taak.id }} </td>
                 <td>{{ taak.taak }}</td>
+                <td>{{ taak.deadline }} </td>   
+                {% if taak.voltooid %}
+                <td style="background-color:green">Deze taak is voltooid</td>   
+                {% elif date < taak.deadline %}
+                <td style="background-color:yellow">Aan deze taak wordt gewerkt</td>   
+                {% elif date > taak.deadline  %}
+                <td style="background-color:red;">Deze taak is niet behaald</td>   
+                {% endif %}
                 <td><a href="/todo/edit/{{ taak.id }}">Edit</a></td>   
                 <td><a href="/todo/delete/{{ taak.id}}">Delete</a></td>   
             </tbody>

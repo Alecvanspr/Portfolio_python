@@ -6,7 +6,9 @@
 <form action="/todo/EditItem" method="POST">
     {% csrf_token %}
     <input type="hidden" name="place" value="{{ taak.id }}">
-    <input type="text" name="TaakNaam" placeholder="{{ taak.taak }}">
+    <input type="text" name="TaakNaam" value="{{ taak.taak }}">
+    <input type="date" name="datum" value="{{ taak.deadline }}">
+    <input type="checkbox" name="voltooid" value="{{ taak.voltooid }}">
     <input type="submit" value="Bewerk" class="btn btn-primary">
 </form> 
 {% endblock %}

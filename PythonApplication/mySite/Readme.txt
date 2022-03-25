@@ -21,9 +21,9 @@ Dit is vergelijkbaar met de controller in C#
 Hierin worden de models gemaakt.
 Bij het maken van een model moet je deze (zodra je deze wil gebruiken) een migration uitvoeren.
 Je kan een migration maken van alle classes door gebruik te maken van de volgende line
-Python  manage.py makemigrations
+Python  manage.py makemigrations {{Naam van het mapje waar het in zit}}
 Daarna moet je:
-Python manage.py migrate
+Python manage.py migrate {{Naam van het mapje waar het inzit}}
 
 Het model moet je ook toevoegen in de admin.py. Anders kan je deze niet inzien
 

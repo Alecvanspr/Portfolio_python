@@ -10,11 +10,13 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 def home(request):
     taken = TodoItem.objects.all()
+    date = datetime.today().date()
     return render(
         request,
         'todo/Home.html',
         {
             "taken": taken,
+            "date": date,
         }
     )
 
@@ -39,9 +41,20 @@ def deleteConfirm(request):
         return redirect("/todo/delete/{{ place }}")
 
 #Voeg een nieuwe item toe
+def addItem(request):
+
+        return render(
+        request,
+        "todo/AddItem.html",
+        {
+            'opdracht': "Toegevoegd"
+        }
+    )
+    
 def add(request):
     naam = request.POST['naam']
-    TodoItem.objects.create(taak=naam)
+    datum = request.POST['datum']
+    TodoItem.objects.create(taak=naam, deadline=datum)
     return render(
         request,
         "todo/Success.html",
@@ -63,9 +76,11 @@ def edit(request,place):
 def EditItem(request):
     place = request.POST['place']
     naam = request.POST['TaakNaam']
+    datum = request.POST['datum']
+    voltooid = request.POST['voltooid']
     #dit is een check om te kijken of het item wel bestaat
     try:
-        TodoItem.objects.filter(id=place).update(taak=naam)
+        TodoItem.objects.filter(id=place).update(taak=naam, deadline=datum, voltooid=voltooid)
     except TodoItem.DoesNotExist:
         return redirect("home")
     return redirect("/todo/succes")
