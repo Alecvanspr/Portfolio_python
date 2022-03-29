@@ -5,8 +5,14 @@
 <form action="/todo/add" method="POST">
 
     {% csrf_token %}
-    <input name="naam" placeholder="nieuwe taak">
-    <input type="date" name="datum">
+    <div class="'form-group">
+        <label for="naam">Naam van de taak</label>
+        <input class="form-control form-control-lg" id="naam" name="naam" placeholder="nieuwe taak">
+    </div>
+    <div class="form-group">
+        <label for="datum">Deadline
+        <input class="form-control form-control-lg" id="datum" type="date" name="datum">
+    </div>   
     <input type="submit" value="Create">
 </form>
 

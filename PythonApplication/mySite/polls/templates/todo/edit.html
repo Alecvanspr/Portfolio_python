@@ -2,13 +2,24 @@
 {% load static %}
 {% block content %}
 
-<h1>Bewerk de gegevens van {{ taak.taak }}</h1>
+<h1>Edit {{ taak.taak }}</h1>
+<p>Bewerk hier de gegevens van {{ taak.taak }} </p>
 <form action="/todo/EditItem" method="POST">
     {% csrf_token %}
     <input type="hidden" name="place" value="{{ taak.id }}">
-    <input type="text" name="TaakNaam" value="{{ taak.taak }}">
-    <input type="date" name="datum" value="{{ taak.deadline }}">
-    <input type="checkbox" name="voltooid" value="{{ taak.voltooid }}">
+    <div class="form-group">
+        <label for="'taakNaam">Naam:</label>
+        <input  class="form-control" id="taakNaam" type="text" name="TaakNaam" value="{{ taak.taak }}">
+    </div>
+    <div class="form-group">
+        <label for="datum">Deadline:</label>
+        <input class="form-control" type="date" id="datum" name="datum" value="{{ datum }}">
+    </div>
+    <div>
+        <input class="form-check-input" type="checkbox" id="voltooid" name="voltooid" checked="{{ taak.voltooid }}" value="True">
+        <label class="form-check-label" for="voltooid">Afgerond </label>
+    </div> 
+
     <input type="submit" value="Bewerk" class="btn btn-primary">
 </form> 
 {% endblock %}

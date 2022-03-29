@@ -1,3 +1,4 @@
+from datetime import date
 import imp
 import re
 from urllib import request, response
@@ -66,18 +67,24 @@ def add(request):
 #bewerk een item
 def edit(request,place):  
     taak = TodoItem.objects.get(id=place)
+    datum = taak.deadline.strftime("%Y-%m-%d")
     return render(
         request,
         "todo/edit.html",
         {
             "taak": taak,
+            "datum":datum,
         }
     )
 def EditItem(request):
     place = request.POST['place']
     naam = request.POST['TaakNaam']
     datum = request.POST['datum']
-    voltooid = request.POST['voltooid']
+    try:
+        voltooid = request.POST['voltooid']
+    except KeyError:
+        voltooid = False
+    
     #dit is een check om te kijken of het item wel bestaat
     try:
         TodoItem.objects.filter(id=place).update(taak=naam, deadline=datum, voltooid=voltooid)
