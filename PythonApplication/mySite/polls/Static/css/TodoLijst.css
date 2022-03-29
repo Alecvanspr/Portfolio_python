@@ -19,3 +19,14 @@ header{
     background-color: grey;
     transition:1s background-color;
 }
+.todo_Item_row :hover{
+    background-color:lightgrey;
+    transition:1s background-color;
+}
+td{
+    padding:2px;
+    margin:1px;
+}
+.small_box{
+    width: 1rem;
+}

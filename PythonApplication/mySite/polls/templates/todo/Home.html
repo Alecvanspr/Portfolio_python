@@ -7,27 +7,28 @@
         <a class="btn btn-primary" href="/todo/additem">Maak nieuw item aan</a> 
         <table>
             <thead>
-                <th style="width:5rem">positie</th>
-                <th style="width:20rem">Taak</th>
-                <th style="width:5rem;">Deadline</th>
-                <th style="width:1rem;">voltooid</th>
-                <th style="width:5rem;"></th>
-                <th style="width:5rem"></th>    
+                <th style="width:1rem">plek</th>
+                <th style="width:24rem">Taak</th>
+                <th style="width:10rem;">Deadline</th>
+                <th style="width:2rem;">status</th>
+                <th style="width:1rem;"></th>
+                <th style="width:1rem"></th>    
             </thead>
             {% for taak in taken %}
-            <tbody>
+            <tbody class="todo_Item_row">
                 <td>{{ taak.id }} </td>
                 <td>{{ taak.taak }}</td>
                 <td>{{ taak.deadline }} </td>   
                 {% if taak.voltooid %}
-                <td style="background-color:green">Deze taak is voltooid</td>   
+                <td style="background-color:green">Klaar</td>   
                 {% elif date < taak.deadline %}
-                <td style="background-color:yellow">Aan deze taak wordt gewerkt</td>   
+                <td style="background-color:yellow">bezig</td>   
                 {% elif date > taak.deadline  %}
-                <td style="background-color:red;">Deze taak is niet behaald</td>   
+                <td style="background-color:red;">Gefaald</td>   
                 {% endif %}
-                <td><a href="/todo/edit/{{ taak.id }}">Edit</a></td>   
-                <td><a href="/todo/delete/{{ taak.id}}">Delete</a></td>   
+                <td><a href="/todo/edit/{{ taak.id }}"><i class="fa fa-pencil" aria-hidden="true"></i>
+                </a></td>   
+                <td><a href="/todo/delete/{{ taak.id}}"><i class="fa-solid fa-xmark"></i></a></td>   
             </tbody>
             {% endfor %}
         </table>
