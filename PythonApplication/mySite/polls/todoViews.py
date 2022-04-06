@@ -1,16 +1,47 @@
 from datetime import date
 import imp
 import re
+#door middel van picklen kan je bepaalde lists terug zetten naar de oorspronkelijke vorm
+import pickle
+from unittest import expectedFailure
+
+from linq import Flow
 from urllib import request, response
 from django.shortcuts import redirect, render
 from django.utils.timezone import datetime
 from django.http import Http404, HttpRequest, HttpResponse
 from .models import TodoItem
 
+
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-def home(request):
+def homeMethod(request):
+    print("home method")
     taken = TodoItem.objects.all()
+    return home(request,taken)
+
+def orderby(request,orderby):
+    taken = TodoItem.objects.all()
+    try:
+        taken = taken.order_by(orderby)
+    except:
+        print("er is iets anders ingevuld")
+    return home(request,taken)
+
+def zoek(request, zoek):
+    taken = TodoItem.objects.filter(taak__contains=zoek)
+    return home(request, taken)
+
+def zoekEnFilter(request,orderby,zoek):
+    taken = TodoItem.objects.filter(taak__contains=zoek)
+    try:
+        taken = taken.order_by(orderby)
+    except:
+        print("er is iets anders ingevuld")
+    return home(request, taken)
+
+#algemene home method
+def home(request, taken):
     date = datetime.today().date()
     return render(
         request,
@@ -20,7 +51,6 @@ def home(request):
             "date": date,
         }
     )
-
 #verwijder een todo Item
 def delete(request,place):
     taak = TodoItem.objects.get(id=place)
