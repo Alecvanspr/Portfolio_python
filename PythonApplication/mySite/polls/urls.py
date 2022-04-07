@@ -15,7 +15,8 @@ urlpatterns = [
     path("Lijst", views.PaginaMetLijst , name="home"),
     #Gegevens voor het inloggen
         path("login",todoViews.LoginHome, name="login"),
-    
+        path("loginUser", todoViews.Login, name="Logging in"),
+        path("register", todoViews.signup, name="register"),
     #Dit is allemaal nodig voor het todo scherm
         path("todo", todoViews.homeMethod, name="home"),
         path("todo/succes", todoViews.succes, name="Succes"),

@@ -33,3 +33,34 @@ table{
 .small_box{
     width: 1rem;
 }
+.gradient-custom {
+    /* fallback for old browsers */
+    background-image: linear-gradient(to left,#FFC312,#EE5A24,#FFC312);
+
+    background: #f6d365;
+  
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(246, 211, 101, 0.4), rgba(253, 160, 133, 0.4));
+  
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(246, 211, 101, 0.4), rgba(253, 160, 133, 0.4))
+  }
+.btn-beweeg {
+    border: none;
+    color:black;
+    margin: 20px;
+    padding: 12px;
+    width: 220px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    background-size: 200%;
+    transition: 0.6s;
+}
+.move-gradient-right {
+    background-image: linear-gradient(to right, rgba(246, 211, 101, 0.4), rgba(253, 160, 133, 0.4));
+}
+.btn-beweeg:hover{
+    background-position: right;
+}

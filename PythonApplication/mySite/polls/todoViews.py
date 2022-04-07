@@ -11,7 +11,9 @@ from django.shortcuts import redirect, render
 from django.utils.timezone import datetime
 from django.http import Http404, HttpRequest, HttpResponse
 from .models import TodoItem
-
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, authenticate
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
@@ -47,6 +49,12 @@ def sorteer(sorteren, lijst):
     except:
         print("er is iets anders ingevuld")
     return lijst
+    
+def getUser(request):
+    try:
+        return request.user.username
+    except:
+        return ""
 
 #algemene home method
 def home(request, taken,zoek, orderby):
@@ -55,6 +63,7 @@ def home(request, taken,zoek, orderby):
         request,
         'todo/Home.html',
         {
+            "username" : getUser(request),
             "orderby": orderby,
             "zoek": zoek,
             "taken": taken,
@@ -149,3 +158,24 @@ def LoginHome(request):
         request,
         "Login/Home.html"
     )
+def Login(request):
+    username = request.POST['Email']
+    password = request.POST['password']
+    return render(
+    request,
+    "Login/Home.html"
+    )
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'login/Register.html', {'form': form})
