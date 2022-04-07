@@ -15,38 +15,48 @@ from .models import TodoItem
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+#dit is de home methode
 def homeMethod(request):
-    print("home method")
-    taken = TodoItem.objects.all()
-    return home(request,taken)
+    zoekTerm = getOrNull(request,'zoek')
+    sorteren = getOrNull(request,'filter')
+    taken = sorteer(sorteren,zoek(zoekTerm))
+    return home(request,taken,zoekTerm, sorteren)
 
-def orderby(request,orderby):
-    taken = TodoItem.objects.all()
+#Deze methode kijkt of een get leeg is, als dat het geval is, dan wordt er niks gereturned
+#deze methode is open closed doordat je hiermee wel steeds kan uitbreiden
+def getOrNull(request,getItem):
     try:
-        taken = taken.order_by(orderby)
+        ret = request.GET[getItem]
+    except:
+        ret = ""
+        print("error")
+    return ret
+
+#methode voor een lijst voor het zoeken
+def zoek(zoek):
+    if zoek is None:
+        zoek=""
+    return TodoItem.objects.filter(taak__contains=zoek)
+
+#een methode voor de lijst met het sorteren
+def sorteer(sorteren, lijst):
+    if sorteren is None:
+        sorteren="id"
+    try:
+        lijst = lijst.order_by(sorteren)
     except:
         print("er is iets anders ingevuld")
-    return home(request,taken)
-
-def zoek(request, zoek):
-    taken = TodoItem.objects.filter(taak__contains=zoek)
-    return home(request, taken)
-
-def zoekEnFilter(request,orderby,zoek):
-    taken = TodoItem.objects.filter(taak__contains=zoek)
-    try:
-        taken = taken.order_by(orderby)
-    except:
-        print("er is iets anders ingevuld")
-    return home(request, taken)
+    return lijst
 
 #algemene home method
-def home(request, taken):
+def home(request, taken,zoek, orderby):
     date = datetime.today().date()
     return render(
         request,
         'todo/Home.html',
         {
+            "orderby": orderby,
+            "zoek": zoek,
             "taken": taken,
             "date": date,
         }
@@ -131,4 +141,11 @@ def succes(request):
     return render(
         request,
         "todo/Success.html",
+    )
+
+#Hieronder heeft betrekking tot het inloggen
+def LoginHome(request):
+    return render(
+        request,
+        "Login/Home.html"
     )

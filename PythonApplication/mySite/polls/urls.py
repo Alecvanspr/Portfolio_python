@@ -13,25 +13,24 @@ urlpatterns = [
     path("home/<name>", views.hello_there, name="hello_there"),
     path("Variabelen/<Variabel1>&<Variabel2>&<Variabel3>",views.PaginaMetVariabelen,name="paginaMetVariabelen"),
     path("Lijst", views.PaginaMetLijst , name="home"),
-
+    #Gegevens voor het inloggen
+        path("login",todoViews.LoginHome, name="login"),
+    
     #Dit is allemaal nodig voor het todo scherm
-    path("todo", todoViews.homeMethod, name="home"),
-    path("todo/filter=<orderby>", todoViews.orderby, name="home sort"),
-    path("todo/zoek=<zoek>",todoViews.zoek,name="zoeken"),
-    path("todo/filter=<orderby>/zoek=<zoek>",todoViews.zoekEnFilter,name="zoekEnFilter"),
-    path("todo/succes", todoViews.succes, name="Succes"),
+        path("todo", todoViews.homeMethod, name="home"),
+        path("todo/succes", todoViews.succes, name="Succes"),
 
-    #delete
-    path("todo/delete/", todoViews.notFound,name="notFound"),
-    path("todo/delete/<place>", todoViews.delete, name='delete'),
-    path("todo/deleteConfirm", todoViews.deleteConfirm, name='delete Confirmed'),
+        #delete
+        path("todo/delete/", todoViews.notFound,name="notFound"),
+        path("todo/delete/<place>", todoViews.delete, name='delete'),
+        path("todo/deleteConfirm", todoViews.deleteConfirm, name='delete Confirmed'),
 
-    #Edit
-    path("todo/edit", todoViews.notFound, name="notfound"),
-    path("todo/edit/<place>", todoViews.edit, name='edit'),
-    path("todo/EditItem", todoViews.EditItem, name="Edit Item"),
+        #Edit
+        path("todo/edit", todoViews.notFound, name="notfound"),
+        path("todo/edit/<place>", todoViews.edit, name='edit'),
+        path("todo/EditItem", todoViews.EditItem, name="Edit Item"),
 
-    #Add
-    path("todo/additem", todoViews.addItem, name="Voeg item toe"),
-    path("todo/add",todoViews.add, name="add"),
+        #Add
+        path("todo/additem", todoViews.addItem, name="Voeg item toe"),
+        path("todo/add",todoViews.add, name="add"),
 ]

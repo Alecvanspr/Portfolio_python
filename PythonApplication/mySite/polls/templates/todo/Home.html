@@ -4,13 +4,21 @@
         <div class="row">
             <h1>dit is de pagina voor de todo list</h1>
         </div>
+        <div class="row">
+        <!--Hier is een GET toegepast-->
+        <form action="/todo" method="GET" class="col-5">
+            <input name="filter" type="hidden" value="{{ orderby }}">
+            <input name="zoek" value="{{ zoek }}" placeholder="zoek">
+            <input type="submit" value="zoek" class="btn btn-primary">
+        </form>
         <a class="btn btn-primary" href="/todo/additem">Maak nieuw item aan</a> 
+        </div>  
         <table>
             <thead>
-                <th style="width:1rem">plek</th>
-                <th style="width:24rem">Taak</th>
-                <th style="width:10rem;">Deadline</th>
-                <th style="width:2rem;">status</th>
+                <th style="width:1rem"><a href="/todo?filter=id&zoek={{ zoek }}">plek</a></th>
+                <th style="width:24rem"><a href="/todo?filter=taak&zoek={{ zoek }}">Taak</a></th>
+                <th style="width:10rem;"><a href="/todo?filter=deadline&zoek={{ zoek }}">deadline</a></th>
+                <th style="width:2rem;"><a href="/todo?filter=voltooid&zoek={{ zoek }}">status</a></th>
                 <th style="width:1rem;"></th>
                 <th style="width:1rem"></th>    
             </thead>
