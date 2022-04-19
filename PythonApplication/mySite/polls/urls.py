@@ -17,6 +17,7 @@ urlpatterns = [
         path("login",todoViews.LoginHome, name="login"),
         path("loginUser", todoViews.Login, name="Logging in"),
         path("register", todoViews.signup, name="register"),
+        path("logout", todoViews.logout_view,name='logout'),
     #Dit is allemaal nodig voor het todo scherm
         path("todo", todoViews.homeMethod, name="home"),
         path("todo/succes", todoViews.succes, name="Succes"),

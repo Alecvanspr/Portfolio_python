@@ -13,7 +13,7 @@ from django.http import Http404, HttpRequest, HttpResponse
 from .models import TodoItem
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate , logout
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
@@ -161,10 +161,14 @@ def LoginHome(request):
 def Login(request):
     username = request.POST['Email']
     password = request.POST['password']
-    return render(
-    request,
-    "Login/Home.html"
-    )
+    user = authenticate(request, username=username,password=password)
+    if user is not None:
+        login(request, user)
+        print("succes")
+        return redirect("/todo/succes")
+    else:
+        print("gefaald")
+        return redirect("/login")
 
 def signup(request):
     if request.method == 'POST':
@@ -179,3 +183,7 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'login/Register.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect("/todo/succes")
