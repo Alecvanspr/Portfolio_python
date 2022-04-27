@@ -1,0 +1,23 @@
+
+def beweegMetPijlen(event,stap):
+    #hier wordt de volgende stap bepaald
+    if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_DOWN:
+                if isOpBoard("y", ypos+10):
+                    ypos +=stap
+            elif event.key == pygame.K_UP:
+                if isOpBoard("y",ypos-10):
+                    ypos -=stap
+            elif event.key == pygame.K_LEFT:
+                if isOpBoard("X",xpos-10):
+                    xpos -=stap
+            elif event.key == pygame.K_RIGHT:
+                if isOpBoard("X",xpos+10):
+                    xpos +=stap
+
+                    #deze methode moet checken of het karakter op het bord staat
+def isOpBoard(type, pos):
+    if type == 'x':
+        return not pos<0 and not pos>screenwidth
+    else:
+        return not pos<0 and not pos> screenheight
