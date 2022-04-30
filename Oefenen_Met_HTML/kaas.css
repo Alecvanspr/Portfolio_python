@@ -3,3 +3,42 @@
     width: 100px;
     height: 100px;
 }
+.vakje:hover{
+    animation-name: verkleur;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+.green{
+    background-color: green;
+}
+.green:hover{
+    animation-name: GreenHover;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+.red{
+    background-color: red;
+}
+.red:hover{
+    animation-name: RedHover;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes GreenHover {
+    0% {background-color: green;}
+    50% {background-color: greenyellow;}
+    100% {background-color: green;}
+}
+
+@keyframes RedHover {
+    0% {background-color: red;}
+    50% {background-color: salmon;}
+    100% {background-color: red;}
+}
+
+@keyframes verkleur {
+    0% {background-color: white;}
+    50% {background-color: lightgrey;}
+    100% {background-color: white;}
+}

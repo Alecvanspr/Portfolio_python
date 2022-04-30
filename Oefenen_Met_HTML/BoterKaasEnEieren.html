@@ -14,33 +14,15 @@
     </head>
 <body>
     <div class="container">
-    <h1 class="text-center">Welkom bij boter kaas en eieren</h1>
-    <h2 class="text-center" id="message">Groen mag beginnen</h2>
-
-    <div class="board">
+        <h1 class="text-center">Welkom bij boter kaas en eieren</h1>
+        <h2 class="text-center" id="message">Groen mag beginnen</h2>
         <div class="row">
-            <div id="vakje1" class="vakje" onclick="beurt('vakje1')">
-            </div>
-            <div id="vakje2" class="vakje" onclick="beurt('vakje2')">
-            </div>
-            <div id="vakje3" class="vakje" onclick="beurt('vakje3')">
-            </div>
+            <label for="rijen">Aantal vakjes</label> 
+            <input id="rijen" class="form-group" type="number" min="3" max="10" value="3">
+            <button class="btn btn-primary" value="Bevestig" onclick="CreateVeld(document.getElementById('rijen').value)"></button>
         </div>
-        <div class="row">
-            <div id="vakje4" class="vakje" onclick="beurt('vakje4')">
-            </div>
-            <div id="vakje5" class="vakje" onclick="beurt('vakje5')">
-            </div>
-            <div id="vakje6" class="vakje" onclick="beurt('vakje6')">
-            </div>
-        </div>
-        <div class="row">
-            <div id="vakje7" class="vakje" onclick="beurt('vakje7')">
-            </div>
-            <div id="vakje8" class="vakje" onclick="beurt('vakje8')">
-            </div>
-            <div id="vakje9" class="vakje" onclick="beurt('vakje9')">
-            </div>
+        <div id="board">
+            <h1>Text</h1>
         </div>
     </div>
 </body>

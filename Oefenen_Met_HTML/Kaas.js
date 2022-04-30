@@ -1,9 +1,7 @@
-keer = 0
-var veld = [
-    [0,0,0],
-    [0,0,0],
-    [0,0,0]
-]
+var keer = 0
+var maxVeldGrootte = 0
+let veldGrootte 
+var veld = []
 
 //Deze methode zorg ervoor dat de speler van beurt kan ververanderen
 function beurt(id){
@@ -21,7 +19,7 @@ function beurt(id){
     if(checkDrieOpEenRij()){
         endGame(kleurbeurt)
     }
-    if(keer==9){
+    if(keer==maxVeldGrootte){
         document.getElementById("message").innerHTML = "Niemand heeft gewonnen"
         if(confirm("Niemand heeft gewonnen,\nWil je nog een potje spelen?")){
             reset()
@@ -42,8 +40,17 @@ function vulveld(id,kleurbeurt){
 
 //Dit geeft de plaats in het veld terug
 function getPlaats(id){
-    var laatsteCijfer = (id.slice(-1))-1
-    return [(Math.floor((laatsteCijfer)/3)),((laatsteCijfer)%3)]
+    var laatsteCijfer = getLaatsteGetal(id,3)
+    return [(Math.floor((laatsteCijfer)/veldGrootte)),((laatsteCijfer)%veldGrootte)]
+}
+
+//Deze geeft de laatste cijfer van een vakje terug
+function getLaatsteGetal(id,LengteLaasteNummers){
+    var laatsteCijfer = (id.slice(-LengteLaasteNummers))
+    if(laatsteCijfer.includes('e')){
+        return getLaatsteGetal(id,LengteLaasteNummers-1)
+    }
+    return laatsteCijfer
 }
 
 //deze functie kijkt of het vakje al bezet is
@@ -59,32 +66,34 @@ function checkBezet(id){
 //Deze methode die geeft ieder vakje een kleur
 function kleur(id,kleur){
     var vakje = document.getElementById(id)
-    vakje.style.backgroundColor = kleur
+    vakje.classList.add(kleur)
 }
 //Deze methode is verantwoordelijk voor het checken of er 3 op een rij is
 function checkDrieOpEenRij(){
-    //Deze checkt de lijn horizontaal
-    for(let i = 0; i<3; i++){
-        var rij = ""+veld[i][0]+veld[i][1]+veld[i][2]
-        if(rij=="XXX"||rij=="YYY"){
-            console.log("Horizontaal"+rij)
+    //Deze methode die werkt nog niet helemaal perfect
+    for(let i = 0; i<veldGrootte; i++){
+        var rijKruislings1 = ""
+        var rijHorizontaal = ""
+        var rijVerticaal = ""
+        for(let j=0; j<veldGrootte; j++){
+            rijHorizontaal += veld[i][j]
+            rijVerticaal += veld[j][i]
+            rijKruislings1 += veld [i][i]
+        }
+        if(rijHorizontaal.includes("XXX")||rijHorizontaal.includes("YYY")){
+            console.log("Horizontaal"+rijHorizontaal)
+            return true
+        }
+        if(rijVerticaal.includes("XXX")||rijVerticaal.includes("YYY")){
+            console.log("verticaal"+rijVerticaal)
+            return true
+        }
+        if(rijKruislings1.includes("XXX")||rijKruislings1.includes("YYY")){
+            console.log("Kruislings"+ rijKruislings1)
             return true
         }
     }
-
-    //Deze lijn check verticaal
-    for(let j = 0; j<3; j++){
-        var rij = ""+veld[0][j]+veld[1][j]+veld[2][j]
-        if(rij=="XXX"||rij=="YYY"){
-            console.log("verticaal"+rij)
-            return true
-        }
-    }
-
-    //Deze lijn check kruislings
-    schuineLijn = (""+veld[0][0]+veld[1][1]+veld[2][2])
-    if(schuineLijn=="XXX"||schuineLijn=="YYY")
-        return true
+    console.log(veld)
     schuineLijn = (""+veld[2][0]+veld[1][1]+veld[0][2])
     if(schuineLijn=="XXX"||schuineLijn=="YYY")
         return true
@@ -99,20 +108,50 @@ function endGame(kleur){
 }
 //hiermee wordt het spel gereset
 function reset(){
-    veld = [
-        [0,0,0],
-        [0,0,0],
-        [0,0,0]
-    ]
-    document.getElementById("vakje1").style.backgroundColor = "white"
-    document.getElementById("vakje2").style.backgroundColor = "white"
-    document.getElementById("vakje3").style.backgroundColor = "white"
-    document.getElementById("vakje4").style.backgroundColor = "white"
-    document.getElementById("vakje5").style.backgroundColor = "white"
-    document.getElementById("vakje6").style.backgroundColor = "white"
-    document.getElementById("vakje7").style.backgroundColor = "white"
-    document.getElementById("vakje8").style.backgroundColor = "white"
-    document.getElementById("vakje9").style.backgroundColor = "white"
+    veld = makeVeld()
+    for(let i =1; i<=maxVeldGrootte; i++){
+        vakje = "vakje"+i
+        document.getElementById(vakje).className = "vakje"
+    }
     document.getElementById("message").innerHTML = "Groen mag beginnen"
     keer = 0
+}
+
+function CreateVeld(Grootte){
+    //Hiermee wordt de veldgrootte geinitialiseerd
+    veldGrootte = Grootte
+    maxVeldGrootte = Grootte * Grootte
+
+    //Hiermee wordt het veld gerealiseerd
+    veld = makeVeld()
+    //Hiermee wordt het veld gevisualiseerd
+    resizeVeld(Grootte)
+}
+
+function resizeVeld(Grootte){
+    let veldCount = 1;
+    veldText = ""
+    for(let i = 0; i<Grootte; i++){
+        var rij = "<div class='row'>"
+        for(let j = 0; j<Grootte;j++){
+            VakID = '"vakje'+veldCount+ '"'
+            rij+="<div id="+VakID+" class='vakje' onclick='beurt("+VakID+")'></div>"
+            veldCount++
+        }
+        rij+="</div>"
+        veldText+=rij
+    }
+    document.getElementById("board").innerHTML= veldText
+}
+
+function makeVeld(){
+    const NieuwVeld = []
+    for(let i = 0; i<veldGrootte;i++){
+        const AnderVeld = []
+        for(let j = 0; j<veldGrootte; j++){
+            AnderVeld.push(0)
+        }
+        NieuwVeld.push(AnderVeld)
+    }
+    return NieuwVeld
 }

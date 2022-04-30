@@ -1,0 +1,41 @@
+*{
+    font-family: gotham;
+}
+img{
+    max-width: 50px;
+    max-height: 50px;
+    float:left;
+}
+.MenuBalk{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 2px 0px 25px lightgrey;
+}
+.MenuItems > li{
+    padding: 5px;
+    display: flex;
+    list-style: none;
+    float: right;
+}
+.MenuItems li:hover{
+    color: grey;
+    animation-name: Blink;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+}
+footer{
+    background-color: grey;
+    color:white;
+    bottom: 0;
+    left:0;
+    height: 5%;
+    width: 100%;
+    position: fixed;
+}
+
+@keyframes Blink {
+    0% {color: black;}
+    50% {color: grey;}
+    100% {color: black;}
+}

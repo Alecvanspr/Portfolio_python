@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="{% static 'css\index.css' %} ">
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    </head> 
+    <body>
+        <!--Dit hoeft niet per ce root te heten, dit is meer dat het de root is voor de hele applicatie-->
+        <div id="root">
+                <h1>Text</h1>
+        </div>
+        <script type="text/babel" src="{% static 'js\index.js' %}"></script>
+    </body>
+</html>

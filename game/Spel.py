@@ -114,7 +114,7 @@ def Spel(screen):
                        running = False
                     keer+=1
                     print(keer)
-
+                    
 def main():
     #Dit is voor de module
     pygame.init()
