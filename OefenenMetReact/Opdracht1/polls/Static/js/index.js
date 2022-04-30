@@ -4,7 +4,7 @@ function GetFooter(){
             <small>Copyright enzo</small> 
         </footer> 
     )
-} 
+}
 function GetHeader(){
     return (
         <header>
