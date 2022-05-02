@@ -1,10 +1,12 @@
+
+
 function GetFooter(){
     return (
         <footer>
             <small>Copyright enzo</small> 
         </footer> 
     )
-}
+} 
 function GetHeader(){
     return (
         <header>
