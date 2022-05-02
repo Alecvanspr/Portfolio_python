@@ -1,0 +1,18 @@
+nav{
+    position:relative;
+    top:0;
+    display: inline-table;
+    background-color: #21222A;
+    width: 100%;
+}
+nav h1{
+    color:#61DAFB;
+}
+.LogoNaam{
+    display: flex;
+    float: left;
+}
+nav p{
+    float: right;
+    color: #DEEBF8;
+}

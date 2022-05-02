@@ -2,12 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Header from "./BussinessCard/Header"
+import About from './BussinessCard/About';
+import Footer from './BussinessCard/Footer';
 import reportWebVitals from './reportWebVitals';
+import logo from './logo.svg';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <div className='app'>
+      <Header />
+      <About />
+      <App />
+      <Footer />
+    </div>
   </React.StrictMode>
 );
 
