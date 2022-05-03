@@ -27,9 +27,11 @@
 .App-link {
   color: #61dafb;
 }
+/* Dit moet je weg halen als je gebruik gaat maken van de bussinesscard
 html{
   background-color: #23252C;
 }
+*/
 .app{
   margin: 40px;
 }

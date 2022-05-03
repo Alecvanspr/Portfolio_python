@@ -1,22 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import "./Airbnb/Style.css"
+import Hero from "./Airbnb/Hero"
 import App from './App';
-import Header from "./BussinessCard/Header"
-import About from './BussinessCard/About';
-import Footer from './BussinessCard/Footer';
+import Header from './Airbnb/Header';
+import Card from './Airbnb/Card';
+
 import reportWebVitals from './reportWebVitals';
 import logo from './logo.svg';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <div className='app'>
-      <Header />
-      <About />
-      <App />
-      <Footer />
-    </div>
+        <Header />
+        <Hero />
+        <div class="deck">
+          <Card 
+                img = "image 12.png"
+                rating = "5.0" 
+                reviewCount = { 6 }
+                country = "USA"
+                title= "Life Lessons with Katie Zaferes"
+                price= {136}
+          />
+
+    <Card 
+                img = "wedding-photography 1.png"
+                rating = "5.0" 
+                reviewCount = { 6 }
+                country = "USA"
+                title= "Life Lessons with Katie Zaferes"
+                price= {136}
+          />
+  </div>
   </React.StrictMode>
 );
 

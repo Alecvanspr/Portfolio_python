@@ -1,0 +1,84 @@
+nav{
+    box-shadow: 0rem 4px 10px darkgrey;
+    display: flex;
+    height: 70px;
+    padding:20px 36px;
+}
+.logo{
+    float:left;
+}
+.Canvas{
+    position: flex;
+}
+.Canvas img{
+    width:  80%;
+    height: auto;
+    margin:2rem;
+}
+.hero{
+    margin:2rem;
+}
+.title h1{
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 39.6px;
+}
+.title p{
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 17.6px;
+}
+.deck{
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.card{
+    margin: 37px;
+    max-width: 167px;
+}
+.card-image{
+    position: relative;
+}
+
+.card-image-img{
+    width: 100%;
+}
+.card-image-message{
+    background-color: white;
+    
+    width: 61px;
+    height: 20px;
+
+    font-weight: 400;
+    font-size: 10.24px;
+    line-height: 11.26px;
+
+    position: absolute;
+    top: 4px;
+    left:4px;
+
+    line-height: 110%;
+    text-align: center;
+}
+.card-content{
+    margin:2px;
+}
+.card-content p{
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 13.2px;
+}
+.card-content-rating{
+    display: flex;
+    align-items: center;
+}
+.card-content-star{
+    width: 14px;
+    height: 14px;
+    float: left;
+}
+.card-content-country{
+    color:gray;
+}
