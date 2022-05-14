@@ -12,7 +12,7 @@ export default function Card(props){
                 <div className="card-content-rating">
                     <img src={ Star } className="card-content-star"></img>
                     <p><b>{props.rating}</b> </p>
-                    <p className="card-content-country"> ({props.reviewCount}) {props.country}</p>
+                    <p className="card-content-country"> ({props.reviewCount}) {props.location}</p>
                 </div>
                 <p>{props.title}</p>
                 <p><b>From {props.price}</b>/person</p>

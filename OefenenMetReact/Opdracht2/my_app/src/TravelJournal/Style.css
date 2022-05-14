@@ -1,0 +1,42 @@
+.header{
+    background-color: #F55A5A;
+    color:white;
+
+    display: grid;
+    width: 100%;
+}
+.header-img{
+    width: 75px;
+    height: 75px;
+
+    padding: 10px;
+    margin:10px;
+}
+.header-logo{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.deck{
+    display: block;
+}
+
+.card{
+    margin: 39px;
+}
+.card-img{
+    margin: 19px;
+    min-width: 232px;
+    min-height: auto;
+    border-radius: 5px;
+}
+.card-image-box{
+    max-width: 126px;
+    max-height: 168px;
+    display: flex;
+
+    overflow: hidden;
+    border-radius: 5px;
+}

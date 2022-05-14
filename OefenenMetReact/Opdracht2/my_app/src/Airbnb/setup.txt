@@ -1,0 +1,30 @@
+Dit moet je in de class "Index.js"plakken om het werkende te krijgen
+
+import Hero from "./Airbnb/Hero"
+import App from './App';
+import Header from './Airbnb/Header';
+import Card from './Airbnb/Card';
+import CardData from './Airbnb/Data'
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+        <Header />
+        <Hero />
+        <div class="deck">
+              {test}
+      </div>
+  </React.StrictMode>
+);
+const test = CardData.map(x=><h1>x.title</h1>)
+
+const getDeck = CardData.map(
+      card => <card
+            img = {card.coverImg}
+            rating = {card.stats.rating}
+            reviewCount = {card.stats.reviewCount}
+            location = {card.location}
+            title= {card.title}
+            price = {card.price}
+      />
+)

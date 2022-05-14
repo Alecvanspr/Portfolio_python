@@ -1,41 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import "./Airbnb/Style.css"
-import Hero from "./Airbnb/Hero"
-import App from './App';
-import Header from './Airbnb/Header';
-import Card from './Airbnb/Card';
+import "./TravelJournal/Style.css"
+import Header from "./TravelJournal/Header"
+import Data from "./TravelJournal/Data"
+import Topic from './TravelJournal/Topic';
+
 
 import reportWebVitals from './reportWebVitals';
-import logo from './logo.svg';
+
+const topics = Data.map(
+      item=>
+            <Topic 
+                  key = {item.id}
+                  item = {item}
+            /> 
+      );
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
         <Header />
-        <Hero />
-        <div class="deck">
-          <Card 
-                img = "image 12.png"
-                rating = "5.0" 
-                reviewCount = { 6 }
-                country = "USA"
-                title= "Life Lessons with Katie Zaferes"
-                price= {136}
-          />
-
-    <Card 
-                img = "wedding-photography 1.png"
-                rating = "5.0" 
-                reviewCount = { 6 }
-                country = "USA"
-                title= "Life Lessons with Katie Zaferes"
-                price= {136}
-          />
-  </div>
+            <div className='deck'>
+              {topics}
+            </div>
   </React.StrictMode>
 );
+
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
