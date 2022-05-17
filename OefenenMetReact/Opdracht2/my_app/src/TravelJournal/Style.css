@@ -20,7 +20,8 @@
 }
 
 .deck{
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .card{
@@ -28,15 +29,39 @@
 }
 .card-img{
     margin: 19px;
-    min-width: 232px;
-    min-height: auto;
+    width: 250px;
+    height: 336px;
     border-radius: 5px;
+    object-fit: cover;
+    
 }
 .card-image-box{
-    max-width: 126px;
-    max-height: 168px;
-    display: flex;
+    width: auto;
+    height: auto;
+    float:left; 
+}
 
-    overflow: hidden;
+.ItemEnzo{
+    border: 1px lightgrey solid;
     border-radius: 5px;
+    margin:20px;
+    display: inline;
+}
+.bericht{
+    float:right;
+}
+.location{
+    display: flex;
+    align-items: center;
+    margin-bottom: -2rem;
+}
+.location-googleMaps{
+    color:darkgray;
+}
+.bericht-datum{
+    font-weight: bold;
+    font-style:oblique;
+}
+.bericht-content{
+    margin-top: -3rem;
 }

@@ -1,17 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import "./MemeGenerator/style.css"
-import Header from './MemeGenerator/header';
-import Content from './MemeGenerator/content';
+import "./TravelJournal/Style.css"
+import Header from "./TravelJournal/Header"
+import Data from "./TravelJournal/Data"
+import Topic from './TravelJournal/Topic';
+
 
 import reportWebVitals from './reportWebVitals';
+
+const topics = Data.map(
+      item=>
+            <Topic 
+                  key = {item.id}
+                  item = {item}
+            /> 
+      );
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-        <Header></Header>
-        <Content></Content>
+        <Header />
+            <div className='deck'>
+              {topics}
+            </div>
   </React.StrictMode>
 );
 

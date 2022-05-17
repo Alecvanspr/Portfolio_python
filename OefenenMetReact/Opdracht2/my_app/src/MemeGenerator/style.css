@@ -1,0 +1,49 @@
+.header{
+    color:white;
+    background-image: linear-gradient(to right,#672280,#A626D3);
+
+
+    display:flex;
+    align-content: center;
+}
+.header-title{
+    width: auto;
+    display: flex;
+    align-content: center;
+}
+.header-logo{
+    height: 4rem;
+    margin: 1rem;
+}
+.form-fields{
+    display: block;
+    align-content: center;
+    align-items: center;
+    margin:1rem;
+}
+.form-fields > input{
+    margin:0.2rem;
+    padding: 0.8rem;
+    width: 45%;
+    border-radius: 5px;
+    
+}
+
+.form-btn{
+    margin:1rem;
+    padding: 1rem;
+    width: 95%;
+
+    border-radius: 5px;
+    border:none; 
+    background-image: linear-gradient(to right,#672280,#A626D3);
+
+    font-size: large;
+    font-weight: 400;
+    color:white;
+}
+.result-image{
+    margin:2rem;
+    width: 90%;
+    height: auto;
+}
