@@ -1,0 +1,16 @@
+{% extends 'Shared/base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>{{product.naam}}</h1>
+<img src="{{product.image_URL}}" alt={{product.image_description}}></img>
+<p>{{product.beschrijving}}</p>
+<p class="priceTag">€{{product.prijs}},-</p>
+
+<div class="row">
+    <a class="btn btn-primary" id="minus">-</a> 
+    <input class="" type="number" value="0">
+    <a class="btn btn-primary" id="plus">+</a> 
+</div>
+
+{% endblock %}

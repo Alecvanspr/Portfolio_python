@@ -1,4 +1,5 @@
 import re
+from tkinter import Image
 from django.shortcuts import render
 from django.utils.timezone import datetime
 from django.http import HttpResponse
@@ -19,4 +20,28 @@ def addProduct(request):
     return render(
         request,
         'product/CreateProduct.html'
+    )
+def CreateProduct(request):
+    Naam = request.POST["naam"]
+    Beschrijving = request.POST["beschrijving"]
+    Prijs = request.POST["prijs"]
+    Image_URL= request.POST["image_URL"]
+    Image_Beschrijving = request.POST["image_Beschrijving"]
+    Product.objects.create(naam = Naam, beschrijving= Beschrijving, prijs=Prijs, image_URL = Image_URL, image_description=Image_Beschrijving)
+    return render(
+        request,
+        "product/Succes.html",
+        {
+            'Succes_Title' : "Product succesvol toegevoegd",
+            'Succes_Message': "Het product "+Naam+" is toegevoegd",
+        }
+    )
+def productPagina(request, value):
+    product = Product.objects.get(id= value)
+    return render(
+        request,
+        "product/Product.html",
+        {
+            "product": product
+        }
     )

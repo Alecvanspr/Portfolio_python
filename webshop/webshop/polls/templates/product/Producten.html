@@ -1,16 +1,16 @@
 {% extends 'Shared/base.html' %}
 {% load static %}
 {% block content %}
+
 <h1> Producten overzicht </h1>
     <div class="row">
-        <a class="btn btn-primary">product toevoegen</a>
+        <a class="btn btn-primary" href="add">product toevoegen</a>
     </div>
-    <div class="Deck">
+    <div class="card-group">
     {% for product in producten %}
-    <div class="card" style="width: 18rem;">
+    <div class="card card-padding">
         <img class="card-img-top" src="{{ product.image_URL }}"></img>
         <h2 class="card-title h5">{{ product.naam}}</h2>
-        <p class="card-text">{{ product.beschrijving }}</p> 
         <p class="card-price">{{ product.prijs }}</p>
         <a class="btn btn-primary"> Bekijk product</a>
     </div>

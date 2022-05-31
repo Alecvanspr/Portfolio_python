@@ -5,6 +5,7 @@ class Product(models.Model):
     beschrijving = models.TextField()
     prijs = models.DecimalField(max_digits=10, decimal_places=2)
     image_URL = models.URLField() 
+    image_description = models.CharField(max_length=30, blank=True)
     def __str__(self) -> str:
        return super().__str__()
 
