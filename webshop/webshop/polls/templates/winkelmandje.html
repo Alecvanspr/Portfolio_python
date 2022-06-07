@@ -1,0 +1,14 @@
+{% extends 'Shared/base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Welkom bij het winkelwagentje</h1>
+<h2>Dit zijn uw producten </h2> 
+
+{% for regel in Producten %}
+    <h3>{{ regel }}</h3>
+    <p>{{ regel[1] }}</p> 
+
+{% endfor  %}
+
+{% endblock %}

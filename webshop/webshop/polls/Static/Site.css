@@ -21,9 +21,31 @@
     margin:1rem;
     padding:0.5rem;
 }
+.product-infotag{
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.input-amount-field{
+    width:3rem;
+}
+.add-chart{
+    margin:0.5rem;
+}
 
 @keyframes hoverBtn {
   0%   {background-color:white;}
   50%  {background-color:lightgrey;}
   100%  {background-color:white;}
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

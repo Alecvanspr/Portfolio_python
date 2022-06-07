@@ -9,4 +9,6 @@ urlpatterns = [
     path("Producten/add", views.addProduct, name="Product toevoegen"),
     path("Producten/CreateProduct", views.CreateProduct, name="CreateProduct"),
     path("Producten/product/<value>", views.productPagina, name="product"),
+    path("Producten/AddToChart", views.AddToWinkelwagentje, name="Voeg aan winkelwagentje toe"),
+    path("Winkelmandje", views.Winkelmandje, name="Winkelmandje"),
 ]

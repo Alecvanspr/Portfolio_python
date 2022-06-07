@@ -3,14 +3,26 @@
 {% block content %}
 
 <h1>{{product.naam}}</h1>
-<img src="{{product.image_URL}}" alt={{product.image_description}}></img>
-<p>{{product.beschrijving}}</p>
-<p class="priceTag">€{{product.prijs}},-</p>
-
 <div class="row">
-    <a class="btn btn-primary" id="minus">-</a> 
-    <input class="" type="number" value="0">
-    <a class="btn btn-primary" id="plus">+</a> 
-</div>
+    <img class="product-image col-5" src="{{product.image_URL}}" alt={{product.image_description}}></img>
+    <div class="product-infotag col-4">
+        <p>{{product.beschrijving}}</p>
+        <p class="priceTag">€{{product.prijs}},-</p>
+
+
+        <form method="POST" action="/Producten/AddToChart">
+            {% csrf_token %}
+            <div class="row">
+                <input type="hidden" value="{{ product.id }}" name="id">
+                <a class="btn btn-primary" id="minus" onclick="remove()" min="0">-</a> 
+                <input id="Kwantiteit-veld" class="input-amount-field" type="number" name="amount" value="0">
+                <a class="btn btn-primary" id="plus" onclick="add()">+</a> 
+            </div>
+            <div class="row add-chart">
+                <input type="submit" class="btn btn-primary"> toevoegen aan winkelmandje</input> 
+            </div>
+        </form>
+    </div> 
+</div> 
 
 {% endblock %}

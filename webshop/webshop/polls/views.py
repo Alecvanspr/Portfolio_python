@@ -1,11 +1,14 @@
 import re
 from tkinter import Image
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.utils.timezone import datetime
 from django.http import HttpResponse
+from numpy import prod, product
 from .models import Product
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+winkelmandje =[]
 
 def homeScreen(request):
     first_item = Product.objects.filter()
@@ -43,5 +46,25 @@ def productPagina(request, value):
         "product/Product.html",
         {
             "product": product
+        }
+    )
+def AddToWinkelwagentje(request):
+    productID = request.POST["id"]
+    aantal = request.POST["amount"]
+
+    product = Product.objects.get(id= productID)
+    orderline = (product, aantal)
+
+    winkelmandje.append(orderline)
+    
+    print("product gevonden")
+    return redirect("/Producten")
+
+def Winkelmandje(request):
+        return render(
+        request,
+        "winkelmandje.html",
+        {
+            "Producten": winkelmandje
         }
     )

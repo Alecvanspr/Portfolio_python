@@ -12,7 +12,7 @@
         <img class="card-img-top" src="{{ product.image_URL }}"></img>
         <h2 class="card-title h5">{{ product.naam}}</h2>
         <p class="card-price">{{ product.prijs }}</p>
-        <a class="btn btn-primary"> Bekijk product</a>
+        <a class="btn btn-primary" href="/Producten/product/{{ product.id }}"> Bekijk product</a>
     </div>
         
     {% endfor %}

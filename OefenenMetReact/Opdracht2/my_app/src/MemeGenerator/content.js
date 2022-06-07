@@ -9,13 +9,16 @@ export default function Content(){
         let item = Data.data.memes[position]
         setImage(item.url)
     }
+    function handleChange(event){
+        console.log(event)
+    }
 
     return(
         <div className="Content">
             <form>
                 <h1 id="Test"></h1> 
                 <div className="form-fields">
-                    <input placeholder="Upper text"></input>
+                    <input type="text" placeholder="Upper text" onChange={handleChange}></input>
                     <input placeholder="Bottom text"></input>
                 </div>
                 <a className="form-btn" onClick={ getNewImage }>Get a new meme image 🔥</a>
