@@ -1,0 +1,6 @@
+Als je de database wil updaten dan moet je het volgende doen,
+
+1. verander de models, als er al gegevens in de database zitten, dan kan je deze niet updaten.
+Dan moet je instellen of die velden leeg mogen zijn.
+
+2.

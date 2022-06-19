@@ -4,7 +4,6 @@ import unittest
 from TestDatavisualisatie2 import *
 #om te tests the runnen moet je de volgende code invullen
 #python -m pytest -v .\TestsVoorDataVisualisatie2.py
-
 class TryTesting(TestCase):
     #Deze methode test of de checkIfContains methode klopt 
     def test_checkIfContainsTrue(self):

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>16</x>
+      <y>216</y>
+      <w>112</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Bestelling
+--
+Factuur_Datum
+Lever_Datum
+Betaald
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>232</x>
+      <y>216</y>
+      <w>96</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>Gebruiker
+--
+Username
+role</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>16</x>
+      <y>392</y>
+      <w>112</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Orderline
+--
+aantal</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>224</x>
+      <y>392</y>
+      <w>112</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>Product
+--
+naam
+beschrijving
+prijs
+image_URL
+image_Description</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>64</x>
+      <y>288</y>
+      <w>48</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>m1=1
+bevat
+m2=*</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>120</x>
+      <y>408</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>m1=0..n
+bevat
+m2=1</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>120</x>
+      <y>232</y>
+      <w>128</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>m1=0..*
+plaatste
+m2=1</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>448</x>
+      <y>216</y>
+      <w>88</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>DownloadLog
+--
+user
+tijd</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>224</y>
+      <w>144</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>m1=1
+downloadde
+m2=*</panel_attributes>
+    <additional_attributes>10.0;20.0;160.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>336</x>
+      <y>80</y>
+      <w>136</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>De gebruiker is niet compleet, deze vul ik later wel
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>288</x>
+      <y>128</y>
+      <w>88</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>90.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+</diagram>

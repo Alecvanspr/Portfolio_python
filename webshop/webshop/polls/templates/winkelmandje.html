@@ -3,12 +3,24 @@
 {% block content %}
 
 <h1>Welkom bij het winkelwagentje</h1>
-<h2>Dit zijn uw producten </h2> 
-
-{% for regel in Producten %}
-    <h3>{{ regel }}</h3>
-    <p>{{ regel[1] }}</p> 
-
-{% endfor  %}
+<h2>Dit zijn uw producten </h2>
+<div class="chart">
+{% for product in Producten %}
+    <div class="chart-item">
+        <img class="chart-img" src="{{ product.0.image_URL}}" alt="{{ product.0.image_description }}">
+        <div class="çhart-contents">
+            <h5>{{ product.0.naam }}</h5>
+            <div class="">
+                <a>-</a>
+                <input id="veld{{ forloop.counter0 }}" value="{{product.1}}">
+                <a>+</a>
+            </div>
+            <a> verwijder item</a>
+        </div> 
+    </div>
+    {% endfor %}
+    <a class="btn btn-primary"> afrekenen</a>
+</div>
 
 {% endblock %}
+

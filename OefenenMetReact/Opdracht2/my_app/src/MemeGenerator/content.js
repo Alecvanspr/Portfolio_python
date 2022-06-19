@@ -14,12 +14,11 @@ export default function Content(){
     }
 
     return(
-        <div className="Content">
+        <div className="content">
             <form>
-                <h1 id="Test"></h1> 
                 <div className="form-fields">
                     <input type="text" placeholder="Upper text" onChange={handleChange}></input>
-                    <input placeholder="Bottom text"></input>
+                    <input placeholder="Bottom text" onChange={handleChange}></input>
                 </div>
                 <a className="form-btn" onClick={ getNewImage }>Get a new meme image 🔥</a>
             </form>

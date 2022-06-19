@@ -9,6 +9,12 @@ urlpatterns = [
     path("Producten/add", views.addProduct, name="Product toevoegen"),
     path("Producten/CreateProduct", views.CreateProduct, name="CreateProduct"),
     path("Producten/product/<value>", views.productPagina, name="product"),
-    path("Producten/AddToChart", views.AddToWinkelwagentje, name="Voeg aan winkelwagentje toe"),
     path("Winkelmandje", views.Winkelmandje, name="Winkelmandje"),
+    path("login", views.loginUser, name="login"),
+    path("loginValidate", views.LoginValidate, name="log in valitation"),
+    path("register",views.Register, name="register"),
+    path("registerValidate", views.RegisterUser, name="Register User"),
+    path("profile", views.Profile, name="User Profile"),
+    path("winkelmandje", views.Winkelmandje, name="Winkelmandje"),
+    path("Producten/AddToChart", views.addToWinkelmandje, name="Voeg aan winkelmandje toe"),
 ]

@@ -18,7 +18,12 @@
         <ul class="menu">
             <li><a href="/Producten">producten</a></li>
             <li><a href="/Winkelmandje">Winkelmandje</a></li>
-        </ul>
+            {% if User is not None %}
+                <li><a href="/profile">{{ User }}</a></li>   
+            {% else %}
+                <li><a href="/login">Log In</a></li>
+            {% endif %}
+            </ul>
     </div>
 </header>   
     <div class="container">

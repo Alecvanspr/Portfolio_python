@@ -13,13 +13,13 @@
         <form method="POST" action="/Producten/AddToChart">
             {% csrf_token %}
             <div class="row">
-                <input type="hidden" value="{{ product.id }}" name="id">
+                <input type="hidden" value="{{ product.id }}" name="productId">
                 <a class="btn btn-primary" id="minus" onclick="remove()" min="0">-</a> 
                 <input id="Kwantiteit-veld" class="input-amount-field" type="number" name="amount" value="0">
                 <a class="btn btn-primary" id="plus" onclick="add()">+</a> 
             </div>
             <div class="row add-chart">
-                <input type="submit" class="btn btn-primary"> toevoegen aan winkelmandje</input> 
+                <input type="submit" class="btn btn-primary" value=" toevoegen aan winkelmandje"></input> 
             </div>
         </form>
     </div> 
