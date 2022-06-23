@@ -1,0 +1,21 @@
+{% extends 'Shared/base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Afrekenen</h1>
+<form method="POST" action="/winkelmandje/placeOrder">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="leverdatum">Bezorg datum</label>
+        <input type="date" class="form-control" id="leverdatum" name="leverdatum">
+    </div>
+    <div class="input-group">
+        <label class="form-check-label"  for="betaald">Betaald</label>
+        <input type="checkbox" class="form-check-input" id="betaald" name="betaald">
+    </div>
+    <div>
+        <input class="btn btn-primary" type="Submit" value="Bevestig">
+    </div>
+</form> 
+
+{% endblock %}

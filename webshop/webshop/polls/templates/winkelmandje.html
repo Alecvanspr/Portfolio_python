@@ -1,26 +1,74 @@
 {% extends 'Shared/base.html' %}
 {% load static %}
 {% block content %}
+<script>
+    let totaal = 0;
+
+    function addToTotaal(prijs, aantal, veld){
+        let Totaalprijs = parseInt(prijs) * parseInt(aantal)
+        totaal += Totaalprijs
+        console.log('{{product.1}}')
+
+        changeTotaalVeld(prijs, veld)
+    }
+    function changeTotaalVeld(prijs, veld){
+        aantal = document.getElementById("veld"+veld).value
+        let Totaalprijs = parseInt(prijs) * parseInt(aantal)
+        document.getElementById("totaalPrijs"+veld).innerHTML = Totaalprijs
+    }
+
+    function changePrijs(pos, prijs, change){
+        let totaal = parseInt(document.getElementById("totaal").innerHTML)
+        if(change == "-"){
+            if(aantal>0){
+                aantal = parseInt(document.getElementById("veld"+pos).value)-1
+                document.getElementById("totaal").innerHTML = totaal - parseInt(prijs)    
+            }
+        }else{
+            aantal = parseInt(document.getElementById("veld"+pos).value)+1
+            document.getElementById("totaal").innerHTML = totaal + parseInt(prijs)
+
+        }
+        document.getElementById("veld"+pos).value = parseInt(aantal)
+        document.getElementById("totaalPrijs"+pos).innerHTML = (parseInt(aantal)*prijs)        
+    } 
+</script> 
 
 <h1>Welkom bij het winkelwagentje</h1>
-<h2>Dit zijn uw producten </h2>
-<div class="chart">
-{% for product in Producten %}
-    <div class="chart-item">
-        <img class="chart-img" src="{{ product.0.image_URL}}" alt="{{ product.0.image_description }}">
-        <div class="çhart-contents">
-            <h5>{{ product.0.naam }}</h5>
-            <div class="">
-                <a>-</a>
-                <input id="veld{{ forloop.counter0 }}" value="{{product.1}}">
-                <a>+</a>
-            </div>
-            <a> verwijder item</a>
-        </div> 
+    <h2>Dit zijn uw producten </h2>
+    <div class="chart">
+    {% for product in Producten %}
+        <div class="chart-item">
+            <div class="row">
+                <img class="col-2 chart-img" src="{{ product.0.image_URL}}" alt="{{ product.0.image_description }}">
+                <div class="çhart-contents col-6">
+                    <h1 class="h3">{{ product.0.naam }}</h1>
+                    <div class="row">
+                        <a class="btn btn-primary" onclick="changePrijs('{{ forloop.counter0 }}','{{product.0.prijs}}','-')">-</a>
+                        <input id="veld{{ forloop.counter0 }}" onchange="changeTotaalVeld('{{product.0.prijs}}','{{ forloop.counter0 }}')" class="input-amount-field" value="{{product.1}}">
+                        <a class="btn btn-primary" onclick="changePrijs('{{ forloop.counter0 }}','{{product.0.prijs}}','+')">+</a>
+                    </div>
+                    <a class="btn btn-danger"> verwijder item</a>
+                    <div class="prijs">
+                        <h2 id="totaalPrijs{{ forloop.counter0 }}" class="h5 text-right">Geen prijs geladen</h2>    
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <script>
+            addToTotaal('{{product.0.prijs}}','{{product.1}}','{{ forloop.counter0 }}')
+        </script>
+        {% endfor %}
+        <div class="row col-6">
+            <a class="btn btn-primary" href="/winkelmandje/afrekenen"> afrekenen</a>
+            <p id="totaal" class="h5 text-right"></p>
+            <script>
+                document.getElementById("totaal").innerHTML = totaal
+            </script>
+        </div>
     </div>
-    {% endfor %}
-    <a class="btn btn-primary"> afrekenen</a>
-</div>
+
+
 
 {% endblock %}
 

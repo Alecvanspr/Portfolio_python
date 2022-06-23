@@ -15,7 +15,7 @@
             <div class="row">
                 <input type="hidden" value="{{ product.id }}" name="productId">
                 <a class="btn btn-primary" id="minus" onclick="remove()" min="0">-</a> 
-                <input id="Kwantiteit-veld" class="input-amount-field" type="number" name="amount" value="0">
+                <input id="Kwantiteit-veld" class="input-amount-field" type="number" name="amount" value="{{ aantal }}">
                 <a class="btn btn-primary" id="plus" onclick="add()">+</a> 
             </div>
             <div class="row add-chart">

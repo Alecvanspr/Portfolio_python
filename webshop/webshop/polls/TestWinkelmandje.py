@@ -95,7 +95,18 @@ class TryTesting(TestCase):
         #assert
         self.assertEqual(expected,outputAantal)
 
-    def test_CreateBestelling(self):
-        print("mem")
-        #print(date.today())
-        #Winkelmand.CreateBestelling(True,datetime.today(),0)
+    def test_getAantal(self):
+        #arrange
+        Winkelmand.items.clear()
+        product = test_product(naam = "Product", beschrijving = "Meme", prijs = "25",image_URL= "https://images0.persgroep.net/rcs/inNa6d_SRsUo0GRl9UwbMk5Z1Wc/diocontent/63534838/_crop/16/49/827/1154/_fitwidth/694/?appId=21791a8992982cd8da851550a453bd7f&quality=0.8", image_description="Afbeelding")
+        product2 = test_product(naam = "Product2", beschrijving = "Meme", prijs = "25",image_URL= "https://images0.persgroep.net/rcs/inNa6d_SRsUo0GRl9UwbMk5Z1Wc/diocontent/63534838/_crop/16/49/827/1154/_fitwidth/694/?appId=21791a8992982cd8da851550a453bd7f&quality=0.8", image_description="Afbeelding")
+        expectedAantal = 4
+        Winkelmand.items.append((product, expectedAantal))
+
+        #act
+        aantal = Winkelmand.getAantal(product)
+        aantalLeeg = Winkelmand.getAantal(product2)
+
+        #assert
+        self.assertEqual(expectedAantal, aantal)
+        self.assertEqual(0, aantalLeeg)

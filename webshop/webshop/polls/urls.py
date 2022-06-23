@@ -17,4 +17,6 @@ urlpatterns = [
     path("profile", views.Profile, name="User Profile"),
     path("winkelmandje", views.Winkelmandje, name="Winkelmandje"),
     path("Producten/AddToChart", views.addToWinkelmandje, name="Voeg aan winkelmandje toe"),
+    path("winkelmandje/afrekenen", views.afrekenen, name="afrekenen"),
+    path("winkelmandje/placeOrder", views.addToDatabase, name="Het in de database voeren van de bestelling"),
 ]

@@ -23,7 +23,6 @@
     padding:5px;
 }
 
-
 .menu{
     display: flex;
     width: 100%;
@@ -51,17 +50,18 @@
 .chart-item{
     border: solid gray 2px;
     border-radius: 5px;
-    display: inline-flex;
     width: 100%;
 }
 .chart-img{
-    width: 25%;
-    min-width: 10rem;
+    margin:2rem;
 }
 .çhart-contents{
     padding:1rem;
     margin:1rem;
+    display: inline-block;
 }
+
+
 @keyframes hoverBtn {
   0%   {background-color:white;}
   50%  {background-color:lightgrey;}

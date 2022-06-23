@@ -1,3 +1,5 @@
+from datetime import date
+from distutils.version import LooseVersion
 import re
 from tkinter import Image
 from wsgiref.util import request_uri
@@ -7,6 +9,7 @@ from django.utils.timezone import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate , login
 from django.http import HttpResponse
+from pytest import Item
 from .models import Product, Bestelling, Orderline
 from . import Winkelmand
 
@@ -48,11 +51,13 @@ def CreateProduct(request):
     )
 def productPagina(request, value):
     product = Product.objects.get(id= value)
+    aantal = Winkelmand.getAantal(product)
     return render(
         request,
         "product/Product.html",
         {
             "product": product,
+            "aantal" : aantal,
             "User": request.user,
         }
     )
@@ -145,38 +150,53 @@ def addToWinkelmandje(request):
     aantal = request.POST["amount"]
     try:
         product= Product.objects.get(id=productId)
-        Winkelmand.addItem(product,aantal)
+        Winkelmand.addOrUpdateItem(product,aantal)
     except:
         print("Product is niet gevonden")
     return redirect("/Producten")
 
 #hier wordt het winkelmandje toegevoegd in de database
-def addToDatabase(betaald,leverdatum,userId):
-    BestellingId = CreateBestelling(betaald, leverdatum, userId)
+def addToDatabase(request):
+    betaald = False
+    try:
+        betaald = request.POST["betaald"] == "on"
+    except:
+        betaald = False
+    leverdatum = request.POST["leverdatum"]
+    BestellingId = CreateBestelling(request,betaald, leverdatum)
     if(CreateOrderLines(BestellingId)):
         print("De bestelling staat in de database")
-        return True
-    return False
-   
+        Winkelmand.items.clear()
+        return redirect("/Producten")
+    return redirect("/winkelmandje")
+
+def afrekenen(request):
+    return render(
+        request,
+        "afrekenen.html",
+        {
+            "User": request.user,
+        }
+    )
 
 #deze methode is voor het aanmaken van de bestelling
-def CreateBestelling(betaald, leverdatum, userId):
+def CreateBestelling(request,betaald, leverdatum):
     try:
-        factuurDatum = datetime.today()
-        bestelling = Bestelling(factuurDatum= factuurDatum ,betaald=betaald, leverdatum = leverdatum ,besteller= userId  )
-        Bestelling.objects.create(bestelling)
+        factuurDatum = date.today()
+        bestelling = Bestelling.objects.create(factuur_Datum= factuurDatum ,betaald=betaald, lever_Datum = leverdatum ,besteller= request.user  )
+        bestelling.save()
         print("Bestelling is gemaakt")
-        return bestelling.Id
+        return bestelling
     except:
-        print("Het maken van de bestelling ging niet goed")
         return -1
 
-def CreateOrderLines(bestellingId):
-    try:
-        for item in Winkelmand.items:
-            Orderline.objects.Create(product = item[0], aantal = item[1], bestelling= bestellingId)
-            print("Orderline is gemaakt")
-        return True
-    except:
-        print("er is een fout opgetreden in het maken van de orderlines")
-        return False
+
+def CreateOrderLines(bestelling):
+        try:
+            for item in Winkelmand.items:
+                Orderline.objects.create(product = item[0], aantal = item[1], bestelling= bestelling)
+                print("Orderline is gemaakt")
+            return True
+        except:
+            print("er is een fout opgetreden in het maken van de orderlines")
+            return False
