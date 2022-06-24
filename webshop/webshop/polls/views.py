@@ -127,13 +127,16 @@ def RegisterUser(request):
         return redirect("/register")
 
 def Profile(request):
-    return render(
-        request,
-        "authentication/Profile.html",
-        {
-            "User": request.user,
-        }
-    )
+    if request.user.is_authenticated:
+        return render(
+            request,
+            "authentication/Profile.html",
+            {
+                "User": request.user,
+            }
+        )
+    else:
+        return redirect("/login")
 
 #Hier wordt het winkelmandje geprint
 def Winkelmandje(request):
@@ -200,3 +203,6 @@ def CreateOrderLines(bestelling):
         except:
             print("er is een fout opgetreden in het maken van de orderlines")
             return False
+
+def Bestellingen(request):
+    print("Bestellingen")
