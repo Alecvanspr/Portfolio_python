@@ -1,0 +1,39 @@
+{% extends 'Shared/base.html' %}
+{% load static %}
+{% block content %}
+<script>
+    function ChangeSortBtn(){
+        '{{ current }}' == "leverdatum" ? 
+            document.getElementById("datum").href = "/bestellingen/filter=-leverdatum"
+        : '{{current}}' == "betaald" ?
+            document.getElementById("betaald").href = "/bestellingen/filter=-betaald"
+        : '{{current}}' == "id" ?
+            document.getElementById("bestellingId").href = "/bestellingen/filter=-id"
+        : document.getElementById("bestellingId").href = "/bestellingen/filter=id"
+        }
+</script>
+
+<div class="order-content">
+    <h1>Mijn bestellingen<h1>
+    <h2>Sorteer op:</h2>
+
+    <div class="row">
+        <div class="btn-group-large">
+            <a id="bestellingId" class="btn btn-primary" href="/bestellingen/filter=id">id</a>
+            <a id="datum" class="btn btn-primary" href="/bestellingen/filter=leverdatum">leverdatum</a>
+            <a id="betaald" class="btn btn-primary" href="/bestellingen/filter=betaald">betaald</a>
+        </div>
+    </div>  
+    <script>
+        ChangeSortBtn()
+    </script>
+    {% for bestelling in bestellingen %}
+    <div class="order-item">
+        <h2>Bestelling - {{bestelling.id}}</h2>   
+        <a class="btn btn-primary" href="/bestelling/{{ bestelling.id }}">bekijk bestelling</a>
+        
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

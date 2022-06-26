@@ -18,20 +18,20 @@
     }
 
     function changePrijs(pos, prijs, change){
-        let totaal = parseInt(document.getElementById("totaal").innerHTML)
-        if(change == "-"){
-            if(aantal>0){
-                aantal = parseInt(document.getElementById("veld"+pos).value)-1
-                document.getElementById("totaal").innerHTML = totaal - parseInt(prijs)    
-            }
-        }else{
-            aantal = parseInt(document.getElementById("veld"+pos).value)+1
-            document.getElementById("totaal").innerHTML = totaal + parseInt(prijs)
-
+    let totaal = parseInt(document.getElementById("totaal").innerHTML)
+    if(change == "-"){
+        if(aantal>0){
+            aantal = parseInt(document.getElementById("veld"+pos).value)-1
+            document.getElementById("totaal").innerHTML = totaal - parseInt(prijs)    
         }
-        document.getElementById("veld"+pos).value = parseInt(aantal)
-        document.getElementById("totaalPrijs"+pos).innerHTML = (parseInt(aantal)*prijs)        
-    } 
+    }else{
+        aantal = parseInt(document.getElementById("veld"+pos).value)+1
+        document.getElementById("totaal").innerHTML = totaal + parseInt(prijs)
+
+    }
+    document.getElementById("veld"+pos).value = parseInt(aantal)
+    document.getElementById("totaalPrijs"+pos).innerHTML = (parseInt(aantal)*prijs)        
+} 
 </script> 
 
 <h1>Welkom bij het winkelwagentje</h1>

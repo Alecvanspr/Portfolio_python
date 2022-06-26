@@ -1,0 +1,36 @@
+{% extends 'Shared/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="chart">
+    <div class="order-info">
+    <h1>Bestelling {{ order.id }}</h1>
+    <p>factuur datum : {{ order.factuur_Datum }}</p>
+    <p>lever datum : {{ order.lever_Datum }}</p>
+    <p>betaald : {{ order.betaald }}</p>
+    <a class="btn btn-primary">download factuur</a>
+    </div>
+
+    {% for line in orderlines %}
+    <div class="chart-item">
+        <div class="row">
+            <img class="col-2 chart-img" src="{{ line.product.image_URL}}" alt="{{ line.product.image_description }}">
+            <div class="çhart-contents col-6">
+                <h2 class="h3">{{ line.product.naam }}</h2>
+                <p class="h4">aantal: {{line.aantal}}</p>
+                <input type="hidden" id="veld{{ forloop.counter0 }}" onchange="changeTotaalVeld('{{product.0.prijs}}','{{ forloop.counter0 }}')" class="input-amount-field" value="{{line.aantal}}">                
+                <div class="prijs">
+                    <h2 id="totaalPrijs{{ forloop.counter0 }}" class="h5 text-right">Geen prijs geladen</h2>    
+                </div>
+            </div>
+        </div> 
+    </div>
+    <script>
+        changeTotaalVeld('{{line.product.prijs}}','{{ forloop.counter0 }}')
+    </script>
+    {% endfor %}
+    <h2 class="text-right">€{{totaal}}</h2>
+</div>
+
+
+{% endblock %}

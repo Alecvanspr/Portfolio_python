@@ -61,6 +61,18 @@
     display: inline-block;
 }
 
+/* Dit is voor de bestellingen*/
+.order-content{
+    display: block;
+    
+}
+.order-item{
+    border:solid grey 1px;
+    border-radius: 5px;
+
+    margin: 1rem;
+    padding: 1rem;
+}
 
 @keyframes hoverBtn {
   0%   {background-color:white;}

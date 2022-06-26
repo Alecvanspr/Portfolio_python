@@ -127,13 +127,16 @@ def RegisterUser(request):
         return redirect("/register")
 
 def Profile(request):
-    return render(
-        request,
-        "authentication/Profile.html",
-        {
-            "User": request.user,
-        }
-    )
+    if request.user.is_authenticated:
+        return render(
+            request,
+            "authentication/Profile.html",
+            {
+                "User": request.user,
+            }
+        )
+    else:
+        return redirect("/login")
 
 #Hier wordt het winkelmandje geprint
 def Winkelmandje(request):
@@ -200,3 +203,66 @@ def CreateOrderLines(bestelling):
         except:
             print("er is een fout opgetreden in het maken van de orderlines")
             return False
+
+
+#Hier wordt alles geregeld met de bestellingen
+#Deze methode is gemaakt zodat je ook zonder filter wordt doorgestuurd
+def redirectBestellingen(request):
+    return redirect("/bestellingen/filter=1")
+
+def Bestellingen(request,filter):
+    #get alle bestellingen van de user
+    bestellingen = filterBestellingen(request,filter)
+    
+    return render(
+        request,
+        "Bestellingen/Bestellingen.html",
+        {
+            "User": request.user,
+            "bestellingen" : bestellingen,
+            "current":filter,
+        }
+    )
+
+def bestelling(request, id):
+    try:
+        order = Bestelling.objects.get(id=id)
+        user = request.user
+
+        #hier wordt gecheckt of de user echt is wie hij is
+        if order.besteller != user:
+            return redirect("/Producten")
+
+        #je hebt de orderlines nodig voor de aantallen
+        orderlines = Orderline.objects.filter(bestelling = order)
+
+        totaal = 0
+        for line in orderlines:
+            totaal+= (line.product.prijs * line.aantal)
+
+        return render(
+            request,
+            "Bestellingen/bestelling.html",
+            {
+                "User": request.user,
+                "order": order,
+                "orderlines": orderlines,
+                "totaal": totaal,
+            }
+        )
+    except:
+        return redirect("/Producten")
+#Hiermee worden de bestellingen gefilterd
+def filterBestellingen(request,filter):
+    if(isInLijst(filter)):
+        return Bestelling.objects.filter(besteller= request.user).order_by(filter)
+    else:
+        return Bestelling.objects.filter(besteller= request.user)
+
+#Deze methode check of het opgegeven ding in de lijst staat
+def isInLijst(check):
+    filter = ['id','-id','lever_Datum', '-lever_Datum', 'betaald', '-betaald']
+    for item in filter:
+        if item == check:
+            return True
+    return False
