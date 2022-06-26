@@ -11,7 +11,10 @@
                             <div class="profile-header">
                                 <h1>{{ User.first_name }} {{ User.last_name }}</h1>
                                 <p>{{User.email}}</p> 
-                                <a href="/bestellingen" class="btn btn-primary">Mijn bestellingen</a> 
+                                <div class="row">
+                                    <a href="/bestellingen" class="btn btn-primary">Mijn bestellingen</a> 
+                                    <a href="/logout" class="btn btn-primary">log uit</a> 
+                            </div>
                             </div>
                         </div>
                     </div>

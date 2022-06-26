@@ -8,7 +8,7 @@ from django import conf
 from django.shortcuts import redirect, render
 from django.utils.timezone import datetime
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate , login
+from django.contrib.auth import authenticate , login , logout
 from django.http import HttpResponse
 from pytest import Item
 from .models import Product, Bestelling, Orderline
@@ -74,6 +74,10 @@ def Winkelmandje(request):
     )
 
 #Dit is voor het inlog schrem
+def logoutUser(request):
+    logout(request)
+    return redirect("/Producten") 
+
 def loginUser(request):
     #hier moet denk een validatie voor komen
 
@@ -278,3 +282,13 @@ def isInLijst(check):
         if item == check:
             return True
     return False
+
+#vanaf hier is het voor de werknemer
+def werknemerDashboard(request):
+    return render(
+            request,
+            "Bestellingen/bestelling.html",
+            {
+                "User": request.user,
+            }
+        )  

@@ -10,6 +10,7 @@ urlpatterns = [
     path("Producten/CreateProduct", views.CreateProduct, name="CreateProduct"),
     path("Producten/product/<value>", views.productPagina, name="product"),
     path("Winkelmandje", views.Winkelmandje, name="Winkelmandje"),
+    path("logout", views.logoutUser, name="logout"),
     path("login", views.loginUser, name="login"),
     path("loginValidate", views.LoginValidate, name="log in valitation"),
     path("register",views.Register, name="register"),

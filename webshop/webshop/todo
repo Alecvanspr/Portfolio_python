@@ -1,5 +1,16 @@
 
 ____PROFIEL____
-- log uit functie maken
 
 ____BESTELLINGEN____
+- je zou de facturen van de bestelling kunnen downloaden
+
+____MEDEWERKER____
+- enkel mensen met een medewerker tag kunnen zien wat nodig is
+- de medewerker is in staat een overzicht te krijgen van alle verkopen van de dag of week.
+- de medewerker kan de exacte producten en de aantallen zien
+
+____ANALYST____
+
+____ADMIN____
+- hebben de mogelijk om nieuwe items toe te voegen
+- kunnen alle log bestanden inzien
