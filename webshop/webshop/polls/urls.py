@@ -19,8 +19,8 @@ urlpatterns = [
     path("Producten/AddToChart", views.addToWinkelmandje, name="Voeg aan winkelmandje toe"),
     path("winkelmandje/afrekenen", views.afrekenen, name="afrekenen"),
     path("winkelmandje/placeOrder", views.addToDatabase, name="Het in de database voeren van de bestelling"),
+    path("winkelmandje/remove/<id>/<aantal>",views.deleteFromWinkelmandje, name="Verwijderd van het winkelmandje"),
     path("bestellingen", views.redirectBestellingen, name="Dit is de redirect naar de bestellingen"),
     path("bestellingen/filter=<filter>", views.Bestellingen , name="Bestellingen"),
     path("bestelling/<id>", views.bestelling, name="Dit is de individuele bestelling"),
-    
 ]

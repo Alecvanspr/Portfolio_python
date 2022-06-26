@@ -1,5 +1,6 @@
 from datetime import date
 from distutils.version import LooseVersion
+from math import prod
 import re
 from tkinter import Image
 from wsgiref.util import request_uri
@@ -148,6 +149,7 @@ def Winkelmandje(request):
             "Producten":  Winkelmand.getItems()
         }
     )
+#hier worden dingen aan het mandje toegevoegd
 def addToWinkelmandje(request):
     productId = request.POST["productId"]
     aantal = request.POST["amount"]
@@ -157,6 +159,14 @@ def addToWinkelmandje(request):
     except:
         print("Product is niet gevonden")
     return redirect("/Producten")
+
+def deleteFromWinkelmandje(request,id,aantal):
+    try:
+        product = Product.objects.get(id=id)
+        Winkelmand.removeItem(product,aantal)
+    except:
+        print("Het verwijderen ging fout")
+    return redirect("/Winkelmandje")
 
 #hier wordt het winkelmandje toegevoegd in de database
 def addToDatabase(request):
@@ -174,6 +184,8 @@ def addToDatabase(request):
     return redirect("/winkelmandje")
 
 def afrekenen(request):
+    if len(Winkelmand.items) == 0:
+        return redirect("/Producten")
     return render(
         request,
         "afrekenen.html",

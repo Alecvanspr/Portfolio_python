@@ -48,7 +48,7 @@
                         <input id="veld{{ forloop.counter0 }}" onchange="changeTotaalVeld('{{product.0.prijs}}','{{ forloop.counter0 }}')" class="input-amount-field" value="{{product.1}}">
                         <a class="btn btn-primary" onclick="changePrijs('{{ forloop.counter0 }}','{{product.0.prijs}}','+')">+</a>
                     </div>
-                    <a class="btn btn-danger"> verwijder item</a>
+                    <a class="btn btn-danger" href="/winkelmandje/remove/{{product.0.id}}/{{product.1}}"> verwijder item</a>
                     <div class="prijs">
                         <h2 id="totaalPrijs{{ forloop.counter0 }}" class="h5 text-right">Geen prijs geladen</h2>    
                     </div>
