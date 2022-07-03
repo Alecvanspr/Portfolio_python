@@ -287,7 +287,7 @@ def isInLijst(check):
 def werknemerDashboard(request):
     return render(
             request,
-            "Bestellingen/bestelling.html",
+            "werknemer/dashboard.html",
             {
                 "User": request.user,
             }
