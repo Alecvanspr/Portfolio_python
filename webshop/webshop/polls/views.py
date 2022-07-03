@@ -13,6 +13,7 @@ from django.http import HttpResponse
 from pytest import Item
 from .models import Product, Bestelling, Orderline
 from . import Winkelmand
+from . import ExcelMaker
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
@@ -239,16 +240,23 @@ def Bestellingen(request,filter):
             "current":filter,
         }
     )
+#deze methode checkt of de bestelling echt van hem is
+def heeftBestelling(request, id):
+    order = Bestelling.objects.get(id=id)
+    user = request.user
+
+    #hier wordt gecheckt of de user echt is wie hij is
+    if order.besteller != user:
+        return True
+    return False
+
 
 def bestelling(request, id):
     try:
         order = Bestelling.objects.get(id=id)
-        user = request.user
 
-        #hier wordt gecheckt of de user echt is wie hij is
-        if order.besteller != user:
+        if heeftBestelling(request,id): 
             return redirect("/Producten")
-
         #je hebt de orderlines nodig voor de aantallen
         orderlines = Orderline.objects.filter(bestelling = order)
 
@@ -268,6 +276,7 @@ def bestelling(request, id):
         )
     except:
         return redirect("/Producten")
+
 #Hiermee worden de bestellingen gefilterd
 def filterBestellingen(request,filter):
     if(isInLijst(filter)):
@@ -282,6 +291,15 @@ def isInLijst(check):
         if item == check:
             return True
     return False
+
+#Dit is voor het downloden van de factuur
+def downloadFactuur(request,id):
+    if(heeftBestelling(request,id)):
+        return redirect("/Producten") 
+
+    ExcelMaker.downloadFactuur(id)
+    return redirect("/bestelling/"+id)
+
 
 #vanaf hier is het voor de werknemer
 def werknemerDashboard(request):

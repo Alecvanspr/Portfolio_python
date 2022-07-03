@@ -24,5 +24,7 @@ urlpatterns = [
     path("bestellingen", views.redirectBestellingen, name="Dit is de redirect naar de bestellingen"),
     path("bestellingen/filter=<filter>", views.Bestellingen , name="Bestellingen"),
     path("bestelling/<id>", views.bestelling, name="Dit is de individuele bestelling"),
+    path("downloadfactuur/<id>",views.downloadFactuur, name="Dit is voor het downlaoden van een factuur"),
     path("medewerker",views.werknemerDashboard, name=""),
+
 ]
