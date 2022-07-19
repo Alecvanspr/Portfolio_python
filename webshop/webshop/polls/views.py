@@ -310,20 +310,6 @@ def downloadFactuur(request,id):
     ExcelMaker.downloadFactuur(id)
     return redirect("/bestelling/"+id)
 
-
-#vanaf hier is het voor de werknemer
-def werknemerDashboard(request):
-    #check of de medewerker wel echt is gevalideerd
-    if isAdmin(request) or isWerknemer(request):
-        return render(
-                request,
-                "werknemer/dashboard.html",
-                {
-                    "User": request.user,
-                }
-            )  
-    return redirect("/Producten")
- 
 #hier worden de rollen van de user gecheckt.
 #dit is efficient doordat je op deze manier een role makkelijker kan aanpassen of veranderen zonder dat je de code duizend keer doormoet lezen
 def isAdmin(request):
@@ -341,3 +327,20 @@ def checkRole(request, id):
             if role.id == id:
                 return True
     return False
+
+#vanaf hier is het voor de werknemer
+def werknemerDashboard(request):
+    #check of de medewerker wel echt is gevalideerd
+    if isAdmin(request) or isWerknemer(request):
+        return render(
+                request,
+                "werknemer/dashboard.html",
+                {
+                    "User": request.user,
+                }
+            )
+    return redirect("/Producten")
+
+ #deze methode zorgt ervoor dat de medewerker de bestellingen van de dag kan zien
+def dagBestellingen(request):
+    return True
