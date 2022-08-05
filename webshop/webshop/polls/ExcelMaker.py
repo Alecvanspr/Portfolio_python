@@ -4,14 +4,15 @@ import re
 from .models import Bestelling, Orderline
 
 #TODOs
-#methode voor het aanmaken van een generieke excelbestand
-#methode voor het instellen van de basis elementen
-#de methode voor het maken van de meegegeven elementen
+#de namen geniek maken naar de datum
 
 #dit moet getest worden met behulp van intergratie in de webapp
-path = filename='polls/excelBestanden/facturen/Template2.xlsx'
+path = filename='polls/excelBestanden/facturen/Template3.xlsx'
 laatste_Regel = 24
 ___wb = openpyxl.load_workbook(filename='polls/excelBestanden/facturen/Template.xlsx')
+
+def createFileName():
+    return "polls/excelBestanden/facturen/"
 
 def getTemplateWorkbook():
     return ___wb
@@ -23,6 +24,7 @@ def downloadFactuur(bestellingId):
             return True
     return False
 
+#met deze methode worden de normale gegevens ingevuld
 def setDefaultValues(bestellingId):
     try:
         bestelling = Bestelling.objects.get(id=bestellingId)
