@@ -1,3 +1,5 @@
+from venv import create
+from xmlrpc.client import DateTime
 import openpyxl
 import pandas as pd
 import re
@@ -7,17 +9,29 @@ from .models import Bestelling, Orderline
 #de namen geniek maken naar de datum
 
 #dit moet getest worden met behulp van intergratie in de webapp
-path = filename='polls/excelBestanden/facturen/Template3.xlsx'
+class Path():
+    def __init__(self, path = "NoName"):
+         self.path  =  path
+    def get(self):
+        return self.path
+    def set(self,nieuwPath):
+        self.path = nieuwPath 
+
+path = Path()
 laatste_Regel = 24
 ___wb = openpyxl.load_workbook(filename='polls/excelBestanden/facturen/Template.xlsx')
 
-def createFileName():
-    return "polls/excelBestanden/facturen/"
+def createFileName(id):
+    bestelling = Bestelling.objects.get(id=id)
+    datum = bestelling.lever_Datum
+    user = bestelling.besteller.username
+    return "polls/excelBestanden/facturen/"+user+"_"+str(datum) + ".xlsx"
 
 def getTemplateWorkbook():
     return ___wb
 
 def downloadFactuur(bestellingId):
+    path.set(createFileName(bestellingId))
     if setDefaultValues(bestellingId):
         if fillOrderlines(bestellingId):
             print("Gelukt")
@@ -26,7 +40,7 @@ def downloadFactuur(bestellingId):
 
 #met deze methode worden de normale gegevens ingevuld
 def setDefaultValues(bestellingId):
-    try:
+    #try:
         bestelling = Bestelling.objects.get(id=bestellingId)
         workbook = getTemplateWorkbook()
         sheet = workbook.active
@@ -35,12 +49,12 @@ def setDefaultValues(bestellingId):
         sheet['F21'] = bestelling.factuur_Datum
         sheet['I21'] = bestelling.lever_Datum
 
-        workbook.save(path)  
+        workbook.save(path.get())  
         print("bestellingsinformatie is ingevoerd")
         return True  
-    except:
-        print("***** Bestellingsinformatie invoeren ging fout *****")
-        return False
+    #except:
+     #   print("***** Bestellingsinformatie invoeren ging fout *****")
+      #  return False
 
 def fillOrderlines(id):
     try:
@@ -82,7 +96,7 @@ def fillOrderlines(id):
         sheet['H'+str(regel+2)] = "Totaal"
         sheet['J'+str(regel+2)] =totaal
 
-        workbook.save(path)
+        workbook.save(path.get())
         print("Orderlines zijn gemaakt")
         return True
     except:

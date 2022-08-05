@@ -39,7 +39,7 @@ class Ingredient(models.Model):
     def __str__(self) -> str:
        return super().__str__()
 
-class Inhoud(models.model):
+class Inhoud(models.Model):
     product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
     Ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     gewicht_in_gram = models.IntegerField()
