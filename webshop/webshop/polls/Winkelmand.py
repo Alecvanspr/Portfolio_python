@@ -6,6 +6,13 @@ items = []
 def getItems():
     return items
 
+#Deze methode is om snel te checken of het winkelmandje leeg is,
+def isLeeg():
+    if len(items)==0:
+        return True
+    return False
+
+
 def addOrUpdateItem(product, aantal):
     if(getAantal(product)==0):
         addItem(product, aantal)

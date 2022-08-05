@@ -125,6 +125,7 @@ def RegisterUser(request):
         user = User.objects.create_user(username, email , password)
         user.last_name = lastName
         user.first_name = firstName
+        user.groups.add(1)
         user.save()
         print("User is successvol aangemaakt")
         return redirect("/Producten")
@@ -146,6 +147,15 @@ def Profile(request):
 
 #Hier wordt het winkelmandje geprint
 def Winkelmandje(request):
+    if Winkelmand.isLeeg():
+        return render(
+            request,
+            "LeegWinkelmandje.html",
+            {
+                "User": request.user,
+            }
+        )
+
     return render(
         request,
         "winkelmandje.html",
@@ -189,7 +199,7 @@ def addToDatabase(request):
     return redirect("/winkelmandje")
 
 def afrekenen(request):
-    if len(Winkelmand.items) == 0:
+    if Winkelmand.isLeeg():
         return redirect("/Producten")
     return render(
         request,
@@ -300,13 +310,37 @@ def downloadFactuur(request,id):
     ExcelMaker.downloadFactuur(id)
     return redirect("/bestelling/"+id)
 
+#hier worden de rollen van de user gecheckt.
+#dit is efficient doordat je op deze manier een role makkelijker kan aanpassen of veranderen zonder dat je de code duizend keer doormoet lezen
+def isAdmin(request):
+    return checkRole(request,2)
+
+def isWerknemer(request):
+    return checkRole(request,3)
+
+def isAnalyst(request):
+    return checkRole(request,4)
+
+#hier wordt de role van de user gecheckt
+def checkRole(request, id):
+    for role in request.user.groups.all():
+            if role.id == id:
+                return True
+    return False
 
 #vanaf hier is het voor de werknemer
 def werknemerDashboard(request):
-    return render(
-            request,
-            "werknemer/dashboard.html",
-            {
-                "User": request.user,
-            }
-        )  
+    #check of de medewerker wel echt is gevalideerd
+    if isAdmin(request) or isWerknemer(request):
+        return render(
+                request,
+                "werknemer/dashboard.html",
+                {
+                    "User": request.user,
+                }
+            )
+    return redirect("/Producten")
+
+ #deze methode zorgt ervoor dat de medewerker de bestellingen van de dag kan zien
+def dagBestellingen(request):
+    return True

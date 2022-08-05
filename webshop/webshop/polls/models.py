@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from numpy import product
 
 class Product(models.Model):
     naam = models.CharField(max_length=30)
@@ -28,5 +29,19 @@ class Orderline(models.Model):
 class DownloadLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     tijd = models.DateTimeField()
+    def __str__(self) -> str:
+       return super().__str__()
+
+class Ingredient(models.Model):
+    naam = models.TextField()
+    saus = models.TextField(blank=True)
+    prijs_per_kilo = models.DecimalField(max_digits=10, decimal_places=2)
+    def __str__(self) -> str:
+       return super().__str__()
+
+class Inhoud(models.model):
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
+    Ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    gewicht_in_gram = models.IntegerField()
     def __str__(self) -> str:
        return super().__str__()

@@ -3,8 +3,18 @@
 {% block content %}
 
 <h1>Dashboard<h1>
-<div class="content"> 
-    
+<div class="col-7"> 
+    <form>
+        <div class="form-group">
+            <label for="begin">Begin datum</label>
+            <input id="begin" name="begin" type="datetime-local">
+        </div>
+        <div class="form-group">
+            <label for="eind">Eind datum</label>
+            <input id="eind" name="eind" type="datetime-local">
+        </div>
+        <input class="btn btn-primary" value="Download" type="submit">
+    </form>
 </div>
 
 {% endblock %}
