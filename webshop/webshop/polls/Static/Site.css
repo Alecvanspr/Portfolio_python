@@ -90,3 +90,10 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+
+/* Dashboard */
+.dashboard-column{
+    border: solid grey 1px;
+    border-radius: 5px;
+}

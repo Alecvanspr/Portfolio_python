@@ -323,9 +323,11 @@ def isAnalyst(request):
 
 #hier wordt de role van de user gecheckt
 def checkRole(request, id):
+    print("Check rollen:")
     for role in request.user.groups.all():
-            if role.id == id:
-                return True
+        print(role.id)
+        if role.id == id:
+            return True
     return False
 
 #vanaf hier is het voor de werknemer

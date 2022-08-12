@@ -1,0 +1,3 @@
+het gebruik van pipenv:
+je moet voor dat je iets doet eerst
+Python -m pipenv ......

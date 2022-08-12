@@ -6,8 +6,6 @@ import re
 from .models import Bestelling, Orderline
 
 #TODOs
-#de namen geniek maken naar de datum
-
 #dit moet getest worden met behulp van intergratie in de webapp
 class Path():
     def __init__(self, path = "NoName"):
@@ -40,7 +38,7 @@ def downloadFactuur(bestellingId):
 
 #met deze methode worden de normale gegevens ingevuld
 def setDefaultValues(bestellingId):
-    #try:
+    try:
         bestelling = Bestelling.objects.get(id=bestellingId)
         workbook = getTemplateWorkbook()
         sheet = workbook.active
@@ -52,9 +50,9 @@ def setDefaultValues(bestellingId):
         workbook.save(path.get())  
         print("bestellingsinformatie is ingevoerd")
         return True  
-    #except:
-     #   print("***** Bestellingsinformatie invoeren ging fout *****")
-      #  return False
+    except:
+        print("***** Bestellingsinformatie invoeren ging fout *****")
+        return False
 
 def fillOrderlines(id):
     try:
@@ -102,11 +100,3 @@ def fillOrderlines(id):
     except:
         print("Het maken van de orderlines is gefaald")
         return False
-
-
-#Deze methode is tijdelijk voor het testen enzo
-def SlaOp(fileNaam):
-    print("Wek")
-
-
-

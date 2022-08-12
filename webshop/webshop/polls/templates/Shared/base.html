@@ -19,7 +19,11 @@
             <li><a href="/Producten">producten</a></li>
             <li><a href="/Winkelmandje">Winkelmandje</a></li>
             {% if User is not None %}
-                <li><a href="/profile">{{ User }}</a></li>   
+                <li><a href="/profile">{{ User }}</a></li>
+
+                {% for u in User.groups.all}
+                    <h1>meme</h1>
+                {% endfor %}
             {% else %}
                 <li><a href="/login">Log In</a></li>
             {% endif %}
