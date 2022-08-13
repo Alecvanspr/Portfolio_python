@@ -15,30 +15,64 @@ class App extends Component {
       transactionList: [],
       modal:false,
       activeItem: {
-        title: "",
-        description: "",
-        completed: false,
+        naam: null,
+        type: null,
+        bedrag: 0.00,
+        datum: "2002-03-26",
+        opmerkingen:null,
+        groep:1,
+        subgroep:0,
       },
+      groepList: [],
+      subGroepList: [],
     };
   }
   //activeert het modal
   toggle = () => {
     this.setState({ modal: !this.state.modal });
   }
+
   //handelt het submitten van een nieuw ding
   handleSubmit = (item) => {
     this.toggle();
-
-    alert("save" + JSON.stringify(item));
+    var itemid = item.id
+    //er wordt gekeken of het item een id heeft
+    if(item.id) {
+      axios.
+        put('/api/Transactions/'+itemid+'/' ,item)
+        .then((res) => this.refreshList());
+        return;
+    }
+    //als dat niet het geval is wordt het doorgestuurd naar deze methode
+    //dan wordt er een post gedaan om het nieuwe object te uploaden
+    axios
+      .post('api/Transactions/',item)
+      .then((res) => {
+        this.refreshList()
+        console.log(res)})
+      .catch(function (error){
+        console.log(error)
+      })
   };
 
   //handelt met een delete
   handleDelete = (item) => {
-    alert("delete" + JSON.stringify(item));
+    axios
+    .delete(`/api/Transactions/${item.id}/`)
+    .then((res) => this.refreshList());
   };
+
   //Deze handelt met het aanmaken van een nieuw item
   createItem = () => {
-      const item = { title: "", description: "", completed: false };
+      const item = {  
+        naam: null,
+        type:null,
+        bedrag:0.00,
+        datum: Date.now(),
+        opmerkingen:"",
+        groep:2,
+        subgroep:3,
+      };
 
       this.setState({ activeItem: item, modal: !this.state.modal });
     };
@@ -57,6 +91,14 @@ class App extends Component {
       .get("/api/Transactions/")
       .then((res) => this.setState({ transactionList: res.data }))
       .catch((err) => console.log(err));
+      axios
+      .get("/api/Groeps/")
+      .then((res) => this.setState({ groepList: res.data }))
+      .catch((err) => console.log(err));
+      axios
+        .get("/api/Subgroeps/")
+        .then((res) => this.setState({ subGroepList: res.data }))
+        .catch((err) => console.log(err));
   };
 
   //dit zorgt ervoord dat de status van de viewCompleted wordt veranderd naar het gewilde type
@@ -85,7 +127,7 @@ class App extends Component {
           className={this.state.viewCompleted ? "nav-link" : "nav-link active"}
           onClick={() => this.displayCompleted("Uitgaven")}
         >
-          Uitgave
+          Uitgaven
         </span>
       </div>
     );
@@ -107,6 +149,8 @@ class App extends Component {
     const newItems = viewCompleted=="all" ? this.state.transactionList : (this.state.transactionList.filter(
       (item) => item.type == viewCompleted
       ))
+      //dit is zodat hij op datum wordt gefilterd
+      newItems.sort((item)=> item.datum)
     return newItems.map((item) => (
         <tr>
           <td>{item.naam}</td>
@@ -127,6 +171,18 @@ class App extends Component {
         </tr>
     ));
   };
+//het totaal wordt hier berekend
+  getTotaal(){
+    var totaal = 0
+    this.state.transactionList.forEach(t => {
+      if(t.type=="Inkomsten"){
+        totaal += t.bedrag
+      }else{
+        totaal -= t.bedrag
+      }
+    });
+    return "Totaal €"+totaal
+  }
 
 
   //hier is het hoofddeel van de applicatie
@@ -137,13 +193,18 @@ class App extends Component {
         <div className="row">
           <div className="col-md-12 col-sm-10 mx-auto p-0">
             <div className="card p-3">
-              <div className="mb-4">
-                <button
-                  className="btn btn-primary"
-                  onClick={this.createItem}
-                >
-                  Add Transactie
-                </button>
+              <div className='row'>
+                <div className="col-6">
+                  <button
+                    className="btn btn-primary"
+                    onClick={this.createItem}
+                  >
+                    Add Transactie
+                  </button>
+                </div>
+                <div className='col-4 text-right'>
+                    <p className='h1' id="totaal">{this.getTotaal()}</p>   
+                </div> 
               </div>
               {this.renderTabList()}
               <table>
@@ -170,14 +231,5 @@ class App extends Component {
     );
   }
 }
-/*
-Op regel 153 bevind zich de modal,
-deze wordt dan doorgelinkt naar het javascriptbestandje MODAL die daar
-verder mee afgeandeld wordt
-*/
-
-
-
-//totaal moet berekend worden van de uitgaven
 
 export default App;
