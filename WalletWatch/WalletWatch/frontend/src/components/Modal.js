@@ -20,12 +20,17 @@ export default class CustomModal extends Component {
       activeItem: this.props.activeItem,
       groepList: [],
       subGroepList: [],
-      activeGroep: ""
+      activeType: "",
+      activeGroep: 0,
+      activeSubGroep:0,
     };
   }
   //check of de de lijst al is ingeladen
   componentDidMount() {
     this.refreshLists();
+    this.state.activeType = this.state.activeItem.type
+    this.state.activeGroep = this.state.activeItem.groep
+    this.state.activeSubGroep = this.state.activeItem.subgroep
   }
   //zorgt ervoor dat alle groepen uit de api worden gehaald
   refreshLists = () => {
@@ -45,22 +50,28 @@ export default class CustomModal extends Component {
     if (e.target.type === "checkbox") {
       value = e.target.checked;
     }
-
     const activeItem = { ...this.state.activeItem, [name]: value };
 
     this.setState({ activeItem });
   };
 
-  //hier moet een methode komen die alle groepen weergeeft,
-
-  //hier moet een methode komen die alle subgroepen weergeeft
-
   render() {
     const { toggle, onSave } = this.props;
 
+const TypeOpties = [
+    {
+      label: "Inkomsten",
+      value: "inkomsten",
+    },
+    {
+      label: "Uitgaven",
+      value: "Uitgaven",
+    },
+]
+
     return (
       <Modal isOpen={true} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Todo Item</ModalHeader>
+        <ModalHeader toggle={toggle}>Transactie</ModalHeader>
         <ModalBody>
           <Form>           
             <FormGroup>
@@ -72,6 +83,20 @@ export default class CustomModal extends Component {
                 value={this.state.activeItem.naam}
                 onChange={this.handleChange}
                 placeholder="Voer naam van transactie in"
+                required={true}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="transactie-bedrag">Bedrag</Label>
+              <Input
+                type="number"
+                step = {0.2}
+                id="transactie-bedrag"
+                name="bedrag"
+                value={this.state.activeItem.bedrag}
+                onChange={this.handleChange}
+                placeholder="bedrag van transactie"
+                required={true}
               />
             </FormGroup>
             <FormGroup>
@@ -79,9 +104,12 @@ export default class CustomModal extends Component {
               <select
                 id="transactie-type"
                 name="type"
+                value={this.state.activeItem.type}
+                onChange={this.handleChange}
               >
-                <option value="Inkomsten">Inkomsten</option>
-                <option value="Uitgaven">Uitgaven</option>
+                {TypeOpties.map((option)=> (
+                  <option value={option.value}>{option.label}</option>
+                ))}
               </select>
             </FormGroup>
             <FormGroup>
@@ -90,7 +118,9 @@ export default class CustomModal extends Component {
                 type="Date"
                 id="transactie-datum"
                 name="datum"
-                value={this.state.activeItem.naam}
+                value={this.state.activeItem.datum}
+                onChange={this.handleChange}
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -99,9 +129,10 @@ export default class CustomModal extends Component {
                 type="text"
                 id="transactie-opmerking"
                 name="opmerkingen"
-                value={this.state.activeItem.naam}
+                value={this.state.activeItem.opmerkingen}
                 onChange={this.handleChange}
                 placeholder="Voer opmerkingen van transactie in"
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -109,15 +140,17 @@ export default class CustomModal extends Component {
               <select
                 id="transactie-groep"
                 name="groep"
+                onChange={this.handleChange}
               >
                 {this.renderGroepen()}
               </select>
             </FormGroup>
             <FormGroup>
-              <Label for="transactie-groep">Groep van de transactie</Label>
+              <Label for="transactie-subgroep">Subgroep van de transactie</Label>
               <select
-                id="transactie-groep"
-                name="groep"
+                  id="transactie-subgroep"
+                  name="subgroep"
+                  onChange={this.handleChange}
               >
                 {this.renderSubGroepen()}
               </select>
@@ -135,22 +168,58 @@ export default class CustomModal extends Component {
       </Modal>
     );
   }
-  renderGroepen= () => {
-    const { groepList } = this.state
-    return groepList.map((groep) => (
-      <option value={groep.id} onClick={this.setActiveGroep(groep)}>{groep.naam}</option>
-    ));
-  }
   setActiveGroep(groep){
-    this.setState({activeGroep: groep })
+    this.setState({activeGroep: groep.id })
+  }
+  setActiveSubGroep(SubGroep){
+    this.setState({activeSubGroep:SubGroep.id})
+  }
+
+ renderGroepen= () => {
+    const { groepList } = this.state
+    const {activeItem} = this.state
+    return groepList.map((groep) => {
+        if(activeItem.groep==groep.id){
+            return (
+              <option
+              value={groep.id} 
+              onClick={() => this.setActiveGroep(groep)}
+              selected
+            >
+              {groep.naam}</option>
+            )
+        }
+        return (<option
+          value={groep.id} 
+          onClick={() => this.setActiveGroep(groep)}
+        >
+          {groep.naam}</option>
+        )
+    });
   }
   renderSubGroepen() {
     const {subGroepList} = this.state
-    const activeGroep = this.state.activeGroep
-    console.log(activeGroep)
-    const newlist = subGroepList.filter((item)=> item.groep == activeGroep);
-    return newlist.map((groep) => (
-      <option value="item">{groep.naam}</option>
-    ));
+    const {activeGroep} = this.state
+    const {activeItem} = this.state
+
+    const newlist = subGroepList.filter((item)=> item.groep === activeGroep);
+    return newlist.map((groep) => {
+        if(activeItem.subgroep==groep.id){
+            return (
+              <option
+              value={groep.id} 
+              onClick={() => this.setActiveSubGroep(groep)}
+              selected
+            >
+              {groep.naam}</option>
+            )
+        }
+        return (<option
+          value={groep.id} 
+          onClick={() => this.setActiveSubGroep(groep)}
+        >
+          {groep.naam}</option>
+        )
+        });
   }
 }

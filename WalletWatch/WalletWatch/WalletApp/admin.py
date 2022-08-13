@@ -9,7 +9,7 @@ class GroepAdmin(admin.ModelAdmin):
     list_display= ('naam','beschrijving','icoon')
 
 class SubGroepAdmin(admin.ModelAdmin):
-    list_display=  ('naam', 'beschrijving')
+    list_display=  ('naam', 'beschrijving','groep')
 
 admin.site.register(Transactie, TransactieAdmin)
 admin.site.register(Groep, GroepAdmin)

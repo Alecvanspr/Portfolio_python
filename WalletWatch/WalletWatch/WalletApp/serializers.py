@@ -14,4 +14,4 @@ class GroepSerializer(serializers.ModelSerializer):
 class SubGroepSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubGroep
-        fields = ('id', 'naam', 'beschrijving')
+        fields = ('id', 'naam', 'beschrijving','groep')
