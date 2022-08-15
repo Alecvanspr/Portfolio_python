@@ -9,7 +9,7 @@ class TransactieSerializer(serializers.ModelSerializer):
 class GroepSerializer(serializers.ModelSerializer):
     class Meta:
         model = Groep
-        fields = ('id', 'naam', 'beschrijving')
+        fields = ('id', 'naam', 'beschrijving','icoon')
 
 class SubGroepSerializer(serializers.ModelSerializer):
     class Meta:

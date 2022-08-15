@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
 import Modal from "./components/Modal";
+import GroepModal from "./components/GroepModal"
+import GroepenOverzicht from "./components/GroepenView"
 import axios from 'axios'
 import { Table } from 'reactstrap';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import * as Icons from '@fortawesome/free-solid-svg-icons';
+
+const iconList = Object
+.keys(Icons)
+.filter(key => key !== "fas" && key !== "prefix" )
+.map(icon => Icons[icon])
+
+library.add(...iconList)
 /*
   App is het hoofd component van de aapplicatie, er wordt een state meegeven met daarin van alles wat van belang is voor het maken van de pagina
 */
@@ -11,7 +23,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      viewCompleted: "all",
+      viewPage: "all",
       transactionList: [],
       modal:false,
       activeItem: {
@@ -38,8 +50,8 @@ class App extends Component {
     var itemid = item.id
     //er wordt gekeken of het item een id heeft
     if(item.id) {
-      axios.
-        put('/api/Transactions/'+itemid+'/' ,item)
+      axios
+        .put('/api/Transactions/'+itemid+'/' ,item)
         .then((res) => this.refreshList());
         return;
     }
@@ -54,6 +66,28 @@ class App extends Component {
         console.log(error)
       })
   };
+  //handelt met de submit van de additem
+  handleSubmitGroep = (item) =>{
+      this.toggle();
+      console.log("Item:" ,item)
+
+      var itemid = item.id
+
+      if(item.id){
+        axios
+        .put('/api/Groeps/'+itemid+'/' ,item)
+        .then((res) => this.refreshList());
+        return;
+      }
+      axios
+      .post('api/Groeps/',item)
+      .then((res) => {
+        this.refreshList()
+        console.log(res)})
+      .catch(function (error){
+        console.log(error)
+      })
+  }
 
   //handelt met een delete
   handleDelete = (item) => {
@@ -101,9 +135,9 @@ class App extends Component {
         .catch((err) => console.log(err));
   };
 
-  //dit zorgt ervoord dat de status van de viewCompleted wordt veranderd naar het gewilde type
+  //dit zorgt ervoord dat de status van de viewPage wordt veranderd naar het gewilde type
   displayCompleted = (status) => {
-    return this.setState({ viewCompleted: status });
+    return this.setState({ viewPage: status });
   };
   /*
     dit zorgt ervoor dat het menutje boven de lijst wordt gerenderd
@@ -112,22 +146,28 @@ class App extends Component {
     return (
       <div className="nav nav-tabs">
         <span
-          className={this.state.viewCompleted ? "nav-link active" : "nav-link"}
+          className={this.state.viewPage ? "nav-link active" : "nav-link"}
           onClick={() => this.displayCompleted("all")}
         >
           All
         </span>
         <span
-          className={this.state.viewCompleted ? "nav-link" : "nav-link active"}
+          className={this.state.viewPage ? "nav-link" : "nav-link active"}
           onClick={() => this.displayCompleted("Inkomsten")}
         >
           Inkomsten
         </span>
         <span
-          className={this.state.viewCompleted ? "nav-link" : "nav-link active"}
+          className={this.state.viewPage ? "nav-link" : "nav-link active"}
           onClick={() => this.displayCompleted("Uitgaven")}
         >
           Uitgaven
+        </span>
+        <span
+          className={this.state.viewPage ? "nav-link" : "nav-link active"}
+          onClick={() => this.displayCompleted("Groepen")}
+        >
+          Groepen
         </span>
       </div>
     );
@@ -135,24 +175,30 @@ class App extends Component {
 
   //geeft de kleur van het uitgegeven bedrag
   getTextColor = (type) => {
-    if(type == "Inkomsten"){
+    if(type === "Inkomsten"){
       return "Inkomsten-text"
     }
     return "Uitgaven-text"
   }
+  //deze error heb ik opgelost, ik weet niet meer hoe
+  getGroep(id){
+    const groep = this.state.groepList.find((groep)=> groep.id===id)
+    return groep
+  }
 
   //dit is het voor het maken van de regels in de tabel
   renderItems = () => {
-    const { viewCompleted } = this.state;
-    const { total } = this.state;
+    const { viewPage: viewPage } = this.state;
+    
     //hieronder wordt gekeken of het type bestaat uit "all", anders worden alle transacties weergegeven
-    const newItems = viewCompleted=="all" ? this.state.transactionList : (this.state.transactionList.filter(
-      (item) => item.type == viewCompleted
+    const newItems = viewPage==="all" ? this.state.transactionList : (this.state.transactionList.filter(
+      (item) => item.type === viewPage
       ))
       //dit is zodat hij op datum wordt gefilterd
       newItems.sort((item)=> item.datum)
     return newItems.map((item) => (
         <tr>
+          <td><FontAwesomeIcon icon={this.getGroep(item.id)} /></td>
           <td>{item.naam}</td>
           <td>{item.datum}</td>
           <td className={this.getTextColor(item.type)}>€{item.bedrag}</td>
@@ -171,17 +217,18 @@ class App extends Component {
         </tr>
     ));
   };
+
 //het totaal wordt hier berekend
   getTotaal(){
     var totaal = 0
     this.state.transactionList.forEach(t => {
-      if(t.type=="Inkomsten"){
+      if(t.type==="Inkomsten"){
         totaal += t.bedrag
       }else{
         totaal -= t.bedrag
       }
     });
-    return "Totaal €"+totaal
+    return "Totaal €"+ (Math.round(totaal * 100) / 100)
   }
 
 
@@ -195,41 +242,83 @@ class App extends Component {
             <div className="card p-3">
               <div className='row'>
                 <div className="col-6">
-                  <button
-                    className="btn btn-primary"
-                    onClick={this.createItem}
-                  >
-                    Add Transactie
-                  </button>
+                  {this.getAddButton()}
                 </div>
                 <div className='col-4 text-right'>
                     <p className='h1' id="totaal">{this.getTotaal()}</p>   
                 </div> 
               </div>
               {this.renderTabList()}
-              <table>
-                <tr>
-                  <th>Naam</th>
-                  <th>Datum</th>
-                  <th>bedrag</th>
-                  <th className='col-1'></th>
-                  <th className='col-1'></th>
-                </tr>
-                {this.renderItems()}
-              </table>
+              {this.renderBody()}
             </div>
           </div>
         </div>
-        {this.state.modal ? (
+        {this.state.modal & this.state.viewPage!="Groepen" ? (
           <Modal
             activeItem={this.state.activeItem}
             toggle={this.toggle}
             onSave={this.handleSubmit}
           />
         ) : null}
+        {this.state.modal & this.state.viewPage=="Groepen" ? (
+          <GroepModal
+            activeItem={this.state.activeItem}
+            toggle={this.toggle}
+            onSave={this.handleSubmitGroep}
+          />
+        ) : null}
       </main>
     );
   }
+  getAddButton(){
+    if(this.state.viewPage=="Groepen"){
+        return(
+          <button
+          className="btn btn-primary"
+          onClick={this.createItem}
+        >
+          Add Groep
+        </button>
+        )
+    }
+    return(
+      <button
+                    className="btn btn-primary"
+                    onClick={this.createItem}
+                  >
+                    Add Transactie
+                  </button>
+    )
+  }
+
+  renderBody() {
+    if(this.state.viewPage==="Groepen"){
+      return (
+      <GroepenOverzicht
+
+      />)
+    }else{
+      return this.renderFinancien()
+    }
+  }
+
+  renderFinancien(){
+    return(
+    <table>
+      <tr>
+        <th className='col-1'></th>
+        <th className='col-8'>Naam</th>
+        <th className='col-2'>Datum</th>
+        <th className='col-2'>bedrag</th>
+        <th className='col-1'></th>
+        <th className='col-1'></th>
+      </tr>
+      {this.renderItems()}
+    </table>
+    )
+  }
 }
+
+
 
 export default App;

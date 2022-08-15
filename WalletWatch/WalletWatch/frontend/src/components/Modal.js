@@ -43,7 +43,7 @@ export default class CustomModal extends Component {
       .then((res) => this.setState({ subGroepList: res.data }))
       .catch((err) => console.log(err));
   };
-
+//deze methode is verantwoordelijk voor het gelijk verwerken van de datavelden
   handleChange = (e) => {
     let { name, value } = e.target;
 
@@ -54,7 +54,7 @@ export default class CustomModal extends Component {
 
     this.setState({ activeItem });
   };
-
+//dit returned de methode als die aangeroepen wordt
   render() {
     const { toggle, onSave } = this.props;
 
@@ -168,13 +168,14 @@ const TypeOpties = [
       </Modal>
     );
   }
+  
   setActiveGroep(groep){
     this.setState({activeGroep: groep.id })
   }
   setActiveSubGroep(SubGroep){
     this.setState({activeSubGroep:SubGroep.id})
   }
-
+//hier worden de normale groepen in geladen
  renderGroepen= () => {
     const { groepList } = this.state
     const {activeItem} = this.state
@@ -197,6 +198,8 @@ const TypeOpties = [
         )
     });
   }
+
+  //hier worden de groepen mee geladen als je een hoofd groep heb geselecteerd
   renderSubGroepen() {
     const {subGroepList} = this.state
     const {activeGroep} = this.state
