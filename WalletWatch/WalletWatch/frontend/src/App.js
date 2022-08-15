@@ -198,7 +198,7 @@ class App extends Component {
       newItems.sort((item)=> item.datum)
     return newItems.map((item) => (
         <tr>
-          <td><FontAwesomeIcon icon={this.getGroep(item.id)} /></td>
+          <td></td>
           <td>{item.naam}</td>
           <td>{item.datum}</td>
           <td className={this.getTextColor(item.type)}>€{item.bedrag}</td>
