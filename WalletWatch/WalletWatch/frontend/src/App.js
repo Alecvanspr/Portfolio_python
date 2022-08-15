@@ -3,6 +3,7 @@ import './App.css';
 import Modal from "./components/Modal";
 import GroepModal from "./components/GroepModal"
 import GroepenOverzicht from "./components/GroepenView"
+import SubGroepModal from "./components/subGroepModal"
 import axios from 'axios'
 import { Table } from 'reactstrap';
 
@@ -24,6 +25,7 @@ class App extends Component {
     super(props);
     this.state = {
       viewPage: "all",
+      activeGroup:0,
       transactionList: [],
       modal:false,
       activeItem: {
@@ -69,7 +71,6 @@ class App extends Component {
   //handelt met de submit van de additem
   handleSubmitGroep = (item) =>{
       this.toggle();
-      console.log("Item:" ,item)
 
       var itemid = item.id
 
@@ -139,6 +140,9 @@ class App extends Component {
   displayCompleted = (status) => {
     return this.setState({ viewPage: status });
   };
+  setGroup = (groep) => {
+    return this.setState({activeGroup:groep})
+  }
   /*
     dit zorgt ervoor dat het menutje boven de lijst wordt gerenderd
   */
@@ -247,55 +251,77 @@ class App extends Component {
                 <div className='col-4 text-right'>
                     <p className='h1' id="totaal">{this.getTotaal()}</p>   
                 </div> 
-              </div>
+              </div>Groepen
               {this.renderTabList()}
               {this.renderBody()}
             </div>
           </div>
         </div>
-        {this.state.modal & this.state.viewPage!="Groepen" ? (
-          <Modal
-            activeItem={this.state.activeItem}
-            toggle={this.toggle}
-            onSave={this.handleSubmit}
-          />
-        ) : null}
-        {this.state.modal & this.state.viewPage=="Groepen" ? (
-          <GroepModal
+        {this.getModals()}
+      </main>
+    );
+  }
+
+  getModals(){
+    const {viewPage} = this.state
+    if(this.state.modal& viewPage ==="Groepen"){
+      return(
+      <GroepModal
             activeItem={this.state.activeItem}
             toggle={this.toggle}
             onSave={this.handleSubmitGroep}
           />
-        ) : null}
-      </main>
-    );
+      )
+    }else if(this.state.modal& viewPage==="subGroep"){
+      return(
+          <SubGroepModal
+              activeItem={this.state.activeItem}
+              toggle={this.toggle}
+              onSave={this.handleSubmitGroep}
+              activeGroup = {this.state.activeGroup}
+            />
+      )
+    }else if(this.state.modal){
+      return(
+      <Modal
+      activeItem={this.state.activeItem}
+      toggle={this.toggle}
+      onSave={this.handleSubmit}
+    />
+      )
+    }else{
+      return null
+    }
   }
+
   getAddButton(){
-    if(this.state.viewPage=="Groepen"){
-        return(
-          <button
-          className="btn btn-primary"
-          onClick={this.createItem}
-        >
-          Add Groep
-        </button>
-        )
+    const {viewPage} = this.state
+    const text = ""
+    if(viewPage=="Groepen"){
+      this.text = "Add groep"
+    }else if(viewPage=="subGroep"){
+      this.text = "Add subgroep"
+    }else{
+      this.text = "Add Transactie"
     }
     return(
       <button
-                    className="btn btn-primary"
-                    onClick={this.createItem}
-                  >
-                    Add Transactie
-                  </button>
+      className="btn btn-primary"
+      onClick={this.createItem}
+    >
+      {this.text}
+    </button>
     )
   }
 
   renderBody() {
-    if(this.state.viewPage==="Groepen"){
+    const {viewPage} = this.state
+    if(viewPage==="Groepen"||viewPage==="subGroep"){
       return (
       <GroepenOverzicht
-
+          viewPage = {viewPage}
+          displayCompleted={this.displayCompleted}
+          setActiveGroup = {this.setGroup}
       />)
     }else{
       return this.renderFinancien()
