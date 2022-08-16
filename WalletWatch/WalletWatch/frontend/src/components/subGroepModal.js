@@ -51,8 +51,8 @@ export default class CustomSubGroepModal extends Component {
   };
 
   render() {
-    const {toggle, onSave } = this.props;
-    this.state.activeItem.groep = 0; //Deze moet 
+    const {toggle, onSave,activeGroup } = this.props;
+    this.state.activeItem.groep = activeGroup; //Deze moet 
 
     return (
         <Modal isOpen={true} toggle={toggle}>
@@ -88,7 +88,7 @@ export default class CustomSubGroepModal extends Component {
             <ModalFooter>
             <Button
                 color="success"
-                onClick={() => onSave(this.state.activeItem)}
+                onClick={() => onSave(this.state.activeItem,"Subgroeps")}
             >
                 Save
             </Button>

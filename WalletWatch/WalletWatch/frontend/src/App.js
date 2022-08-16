@@ -47,20 +47,20 @@ class App extends Component {
   }
 
   //handelt het submitten van een nieuw ding
-  handleSubmit = (item) => {
+  handleSubmit = (item, url) => {
     this.toggle();
     var itemid = item.id
     //er wordt gekeken of het item een id heeft
     if(item.id) {
       axios
-        .put('/api/Transactions/'+itemid+'/' ,item)
+        .put('/api/'+url+'/'+itemid+'/' ,item)
         .then((res) => this.refreshList());
         return;
     }
     //als dat niet het geval is wordt het doorgestuurd naar deze methode
     //dan wordt er een post gedaan om het nieuwe object te uploaden
     axios
-      .post('api/Transactions/',item)
+      .post('api/'+url+'/',item)
       .then((res) => {
         this.refreshList()
         console.log(res)})
@@ -68,27 +68,6 @@ class App extends Component {
         console.log(error)
       })
   };
-  //handelt met de submit van de additem
-  handleSubmitGroep = (item) =>{
-      this.toggle();
-
-      var itemid = item.id
-
-      if(item.id){
-        axios
-        .put('/api/Groeps/'+itemid+'/' ,item)
-        .then((res) => this.refreshList());
-        return;
-      }
-      axios
-      .post('api/Groeps/',item)
-      .then((res) => {
-        this.refreshList()
-        console.log(res)})
-      .catch(function (error){
-        console.log(error)
-      })
-  }
 
   //handelt met een delete
   handleDelete = (item) => {
@@ -101,12 +80,12 @@ class App extends Component {
   createItem = () => {
       const item = {  
         naam: null,
-        type:null,
+        type:"Inkomsten",
         bedrag:0.00,
         datum: Date.now(),
         opmerkingen:"",
         groep:2,
-        subgroep:3,
+        subgroep:2,
       };
 
       this.setState({ activeItem: item, modal: !this.state.modal });
@@ -205,7 +184,7 @@ class App extends Component {
           <td></td>
           <td>{item.naam}</td>
           <td>{item.datum}</td>
-          <td className={this.getTextColor(item.type)}>€{item.bedrag}</td>
+          <td className={this.getTextColor(item.type)}>€{Math.round(item.bedrag)}</td>
           <td><button
             className="btn btn-secondary mr-2"
             onClick={()=> this.editItem(item)}
@@ -251,7 +230,7 @@ class App extends Component {
                 <div className='col-4 text-right'>
                     <p className='h1' id="totaal">{this.getTotaal()}</p>   
                 </div> 
-              </div>Groepen
+              </div>
               {this.renderTabList()}
               {this.renderBody()}
             </div>
@@ -269,7 +248,7 @@ class App extends Component {
       <GroepModal
             activeItem={this.state.activeItem}
             toggle={this.toggle}
-            onSave={this.handleSubmitGroep}
+            onSave={this.handleSubmit}
           />
       )
     }else if(this.state.modal& viewPage==="subGroep"){
@@ -277,7 +256,7 @@ class App extends Component {
           <SubGroepModal
               activeItem={this.state.activeItem}
               toggle={this.toggle}
-              onSave={this.handleSubmitGroep}
+              onSave={this.handleSubmit}
               activeGroup = {this.state.activeGroup}
             />
       )

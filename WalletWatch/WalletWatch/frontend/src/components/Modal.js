@@ -160,7 +160,7 @@ const TypeOpties = [
         <ModalFooter>
           <Button
             color="success"
-            onClick={() => onSave(this.state.activeItem)}
+            onClick={() => onSave(this.state.activeItem,"Transactions")}
           >
             Save
           </Button>

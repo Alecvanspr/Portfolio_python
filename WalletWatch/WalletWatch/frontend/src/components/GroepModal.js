@@ -104,7 +104,7 @@ export default class CustomGroepModal extends Component {
             <ModalFooter>
             <Button
                 color="success"
-                onClick={() => onSave(this.state.activeItem)}
+                onClick={() => onSave(this.state.activeItem,"Groeps")}
             >
                 Save
             </Button>
