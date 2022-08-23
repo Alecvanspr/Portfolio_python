@@ -16,7 +16,7 @@ import {
     Input,
     Label,
   } from "reactstrap";
-  
+
   const iconList = Object
   .keys(Icons)
   .filter(key => key !== "fas" && key !== "prefix" )

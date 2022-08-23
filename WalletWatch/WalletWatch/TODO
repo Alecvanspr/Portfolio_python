@@ -5,3 +5,13 @@
 +je kan alle transacties van een bepaalde subgroep inzien
 
 +je kan een groep inzien
+
+____API____
+
++Ga aan de slag met het maken van de verschillende api calls naar de server.
+
++Probeer reflux te snappen
+
+
+
+Redux is voor het onthouden van state
