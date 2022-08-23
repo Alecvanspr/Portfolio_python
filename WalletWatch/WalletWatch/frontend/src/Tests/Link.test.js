@@ -8,8 +8,6 @@ it('changes the class when hovered', () => {
   const component = renderer.create(
     <Link page="http://www.facebook.com">Facebook</Link>,
   );
-    //Dit is de eerste keer dat het wordt gedaan
-  //act
   let tree = component.toJSON();
   //assert
   expect(tree).toMatchSnapshot();
@@ -30,3 +28,15 @@ it('changes the class when hovered', () => {
   tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
+
+/*
+een test ziet er ongeveer zo uit:
+    test("String van de naam van de text als een kleine beschrijving, ()=>{
+        //arrange
+                {{Hier moeten alle variabelen ingezet worden en ook geinitialiseerd}}
+        //act
+                {{Hier moet alles uitgevoerd worden en dat moet dan ook worden opgeslagen in }}    
+        //assertions
+        expect().toEqual()
+    }")
+*/

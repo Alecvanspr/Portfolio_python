@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
 import Modal from "./components/Modal";
-import GroepModal from "./components/GroepModal"
-import GroepenOverzicht from "./components/GroepenView"
-import SubGroepModal from "./components/subGroepModal"
+import GroepModal from "./GroupViews/Components/GroepModal"
+import GroepenOverzicht from "./GroupViews/GroepenView"
+import SubGroepModal from "./GroupViews/Components/subGroepModal"
 import axios from 'axios'
 import { Table } from 'reactstrap';
+import TransactionRow from './components/TransactionRow';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -156,13 +157,6 @@ class App extends Component {
     );
   };
 
-  //geeft de kleur van het uitgegeven bedrag
-  getTextColor = (type) => {
-    if(type === "Inkomsten"){
-      return "Inkomsten-text"
-    }
-    return "Uitgaven-text"
-  }
   //deze error heb ik opgelost, ik weet niet meer hoe
   getGroep(id){
     const groep = this.state.groepList.find((groep)=> groep.id===id)
@@ -180,24 +174,11 @@ class App extends Component {
       //dit is zodat hij op datum wordt gefilterd
       newItems.sort((item)=> item.datum)
     return newItems.map((item) => (
-        <tr>
-          <td></td>
-          <td>{item.naam}</td>
-          <td>{item.datum}</td>
-          <td className={this.getTextColor(item.type)}>€{Math.round(item.bedrag)}</td>
-          <td><button
-            className="btn btn-secondary mr-2"
-            onClick={()=> this.editItem(item)}
-          >
-            Edit
-          </button></td>
-          <td><button
-            className="btn btn-danger"
-            onClick={() => this.handleDelete(item)}
-          >
-            Delete
-          </button></td>
-        </tr>
+        <TransactionRow 
+            item= {item}
+            editItem = {this.editItem}
+            handleDelete = {this.handleDelete}
+        />
     ));
   };
 

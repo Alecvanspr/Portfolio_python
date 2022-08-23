@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<tr>
+  <td />
+  <td>
+    Nieuw item
+  </td>
+  <td>
+    1661257928396
+  </td>
+  <td
+    className="Inkomsten-text"
+  >
+    €
+    33
+  </td>
+  <td>
+    <button
+      className="btn btn-secondary mr-2"
+      onClick={[Function]}
+    >
+      Edit
+    </button>
+  </td>
+  <td>
+    <button
+      className="btn btn-danger"
+      onClick={[Function]}
+    >
+      Delete
+    </button>
+  </td>
+</tr>
+`;
