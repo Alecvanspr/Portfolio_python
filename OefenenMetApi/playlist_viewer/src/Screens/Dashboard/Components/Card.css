@@ -1,0 +1,17 @@
+.Deck{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin:2rem;
+}
+.Card{
+
+    margin:1rem;
+    display: block;
+    position: relative;
+
+    border: solid grey 1px;
+    border-radius: 5px;
+}
+.Card-content{
+    margin:1rem;
+}

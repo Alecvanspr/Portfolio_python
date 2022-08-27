@@ -17,8 +17,5 @@ it('', ()=>{
             editItem = {(item)=>{console.log("edit "+item.naam)}}
             handleDelete = {(item)=>{console.log("delete "+item.naam)}}
         ></TransactionRow>
-    )
-
-    screen.debug()
-    
+    )    
 })

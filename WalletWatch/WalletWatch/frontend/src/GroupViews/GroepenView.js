@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import * as Icons from '@fortawesome/free-solid-svg-icons';
 
-
 import {
     Button,
     Modal,
@@ -36,7 +35,7 @@ export default class GroepenOverzicht extends Component {
             selectedGroep:0,
         }
     }
-        //check of de de lijst al is ingeladen
+    //check of de de lijst al is ingeladen
     componentDidMount() {
         this.refreshList();
     }
