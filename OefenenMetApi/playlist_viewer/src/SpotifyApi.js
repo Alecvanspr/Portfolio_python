@@ -97,6 +97,17 @@ function requestAuthorization(){
     url += "&scope=user-read-private user-read-email user-modify-playback-state user-read-playback-position user-library-read streaming user-read-playback-state user-read-recently-played playlist-read-private";
     window.location.href = url; // Show Spotify's authorization screen
 }
+//Deze methode wordt aangeroepen als de token verloopt.
+function refreshAccessToken(){
+    refresh_token = localStorage.getItem("refresh_token");
+    let body = "grant_type=refresh_token";
+    body += "&refresh_token=" + refresh_token;
+    body += "&client_id=" + client_id;
+    callAuthorizationApi(body);
+}
+
+
+
 //Hierbij is method het type wat binnen komt. Dat kan dus een GET of POST zijn 
 //De url en body spreken voor zich
 //En de callback is een method die wordt meegegeven aan de methode
@@ -111,14 +122,7 @@ function callApi(method, url, body, callback){
     xhr.onload = callback;
 }
 
-//Deze methode wordt aangeroepen als de token verloopt.
-function refreshAccessToken(){
-    refresh_token = localStorage.getItem("refresh_token");
-    let body = "grant_type=refresh_token";
-    body += "&refresh_token=" + refresh_token;
-    body += "&client_id=" + client_id;
-    callAuthorizationApi(body);
-}
+
 
 //Hieronder komt de code voor actions die worden uitgevoerd voor andere methods
 //await ervan maken

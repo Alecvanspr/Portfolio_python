@@ -37,7 +37,7 @@ export default class App extends Component{
         const tempToken = getToken()
         this.setToken(tempToken)
         if(tempToken!=""){
-            this.setUser(getUser())
+            this.setUser(getUser(tempToken))
         }
     }
 
@@ -57,7 +57,7 @@ export default class App extends Component{
                     </div>
                     </header>
                     <div className='Deck'>
-
+                    <p>token:{this.state.token}</p>
                     </div>
             </div>
         );
