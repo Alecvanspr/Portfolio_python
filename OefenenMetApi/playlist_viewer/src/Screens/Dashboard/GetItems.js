@@ -12,6 +12,7 @@ function GetPlaylists(props) {
     })
 
     const collectPlaylists = async () => {
+        const {token} = props
         const {data} = await axios.get("https://api.spotify.com/v1/me/playlists", {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -24,7 +25,6 @@ function GetPlaylists(props) {
     }
 
     collectPlaylists()
-    console.log(filters)
     return playlists.map((playlist) => {
         if(playlist.name === (filters.naam)||filters.naam===""){
             return(

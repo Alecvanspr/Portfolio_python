@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import axios from "axios";
+import Card from "./Components/Card";
 
 function GetArtists(props) {
-    const URL ="https://api.spotify.com/v1/me/top" 
     const {token}  = props
     const [artists, setArtists] = useState([])
     const searchKey = "Bassie"
@@ -23,10 +23,11 @@ function GetArtists(props) {
     searchArtists()
     
     return artists.map(artist => (
-        <div key={artist.id}>
-            {artist.images.length ? <img width={"100%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
-            {artist.name}
-        </div>
+        <Card
+            id = {artist.id}
+            img = {artist.images.length? artist.images[0].url:"Geen afbeelding"}
+            name = {artist.name}
+        />
     ))
 }
 
